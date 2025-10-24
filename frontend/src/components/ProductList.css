@@ -1,0 +1,66 @@
+.product-grid {
+  display: grid;
+  gap: 40px;
+  padding: 0px;
+  justify-content: center; /* Center the grid in its container */
+  margin-top: 0px;
+margin-bottom: 40px;}
+  .button-center-wrapper {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.logo-container {
+ text-align: center;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.logo22{
+  margin-top: 5px !important;
+  padding-top: 0 !important;
+  object-fit: contain;
+  width: 200px; /* optional: set a smaller size */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+
+/* Show 3 cards max on very large screens */
+@media (min-width: 2201px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 600px);
+  }
+}
+
+/* Exactly 2 cards when width >= 1250px */
+@media (min-width: 1271px) and (max-width: 2200px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 600px);
+  }
+}
+
+/* 1 card per row for smaller screens */
+@media (max-width: 1270px) {
+  .product-grid {
+    grid-template-columns: 600px;
+  }
+}
+.shiko-produktet-btn {
+  background-color: #1b4332 !important;
+  color: white !important;
+  border: 5px solid rgb(42, 89, 51) !important;
+  transform: none !important; /* remove translate if needed */
+  position: static !important; /* ensure it's not absolute like Blej Tash */
+  margin-top: 0px;
+}
+
+.shiko-produktet-btn:hover {
+  background-color: #1b4332 !important;
+  color: #ffffff!important;
+}
+@media (max-width: 800px){
+  .logo22{
+    width: 150px;
+  }
+}

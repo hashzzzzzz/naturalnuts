@@ -1,0 +1,132 @@
+/* Background */
+.contact-wrapper {
+  min-height: 65vh;
+  background: linear-gradient(135deg, #fdf9f3, #f1ece5);
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Box Layout */
+.contact-box {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(223, 220, 220, 0.1);
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+/* Left Info */
+.contact-left {
+  flex: 1;
+  padding: 50px;
+  background-color: #f5fbc9;
+}
+
+.contact-left h1 {
+  font-size: 2.5rem;
+  color: #4b2e19;
+  margin-bottom: 10px;
+}
+
+.contact-left .subtitle {
+  font-size: 1.2rem;
+  color: #6e4f3a;
+  margin-bottom: 10px;
+}
+
+.contact-left .description {
+  font-size: 1rem;
+  color: #7a695b;
+  margin-bottom: 30px;
+}
+
+.info-details p {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Form */
+.contact-form {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f5fbc9;
+}
+.contact-form input:nth-of-type(1) {
+margin-top: 50px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 16px;
+  font-size: 1rem;
+   border: 2px solid #000000;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
+.contact-form textarea {
+  min-height: 280px;
+  resize: vertical;
+}
+
+.contact-form button {
+  background-color: #8b5e3c;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #6f4324;
+}
+.map-container {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Responsive */
+@media (max-width: 1091px) {
+     .map-container iframe {
+    height: 200px;
+  }
+  .contact-box {
+    flex-direction: column;
+  }
+
+  .contact-left,
+  .contact-form {
+    padding: 30px 20px;
+  }
+  
+
+  .contact-left h1 {
+    font-size: 2rem;
+  }
+  .contact-form input:nth-of-type(1) {
+margin-top: 0px;
+}
+
+.contact-form textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+
+}

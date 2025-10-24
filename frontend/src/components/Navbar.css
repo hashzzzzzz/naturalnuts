@@ -1,0 +1,285 @@
+/* Reset default */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+   padding-top: 60px; /* Same as navbar height */
+}
+
+/* Navbar Container */
+.navbar {
+  background-color:#1b4332				;
+  color: white;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Inner Content */
+.navbar-content {
+  width: 90%;
+  max-width: 1250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo{
+  margin-top: 24px;
+}
+/* Logo */
+.logo img {
+  height: 120px;
+  width:250px;
+  max-width: 150px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Nav Links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links li:hover {
+  color: #f4ce14;
+}
+
+/* Hamburger Menu (hidden by default) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  height: 4px;
+  width: 25px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+/* Button inside navbar - vertical center fix */
+.nav-links li .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transform: translateY(-5px); 
+}
+
+/* Make sure the li itself doesn't mess up alignment */
+.nav-links li {
+  display: flex;
+  align-items: center;
+  
+}
+.button {
+  border: none;          /* Remove default border */
+  outline: none;         /* Remove default outline */
+  background-color: transparent; /* Or your preferred bg color */
+  color: rgb(0, 0, 0);        /* Keep text color */
+  cursor: pointer;
+  /* Keep your existing styles */
+  padding: 0.75rem 1.25rem;
+  border-radius: 10rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s;
+}
+/* The :after pseudo-element */
+.button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 100%;
+  background-color: #F4CE14; /* $color replaced */
+  border-radius: 10rem;
+  z-index: -2;
+}
+
+/* The :before pseudo-element */
+.button::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #C9B00F; /* darken($color, 15%) replaced with darker shade */
+  transition: all 0.3s;
+  border-radius: 10rem;
+  z-index: -1;
+}
+
+.button:hover {
+  color: #000000;
+}
+
+.button:hover::before {
+  width: 100%;
+}
+.button:focus {
+  outline: none;
+  border:0px;
+}
+
+/* Search Icon */
+.search-icon {
+   margin-top:3px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #f1c40f; /* Yellow icon */
+  margin-left: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
+}
+/* Search Container to hold input + button inline */
+.search-form {
+  margin-top:3px;
+  position: relative;
+  margin-left: 1rem;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  width: 220px; /* bigger width to fit input + button */
+}
+
+.search-form.visible {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Input takes full width minus button size */
+.search-form input {
+  width: 100%;
+  padding: 8px 40px 8px 12px; /* right padding for button */
+  font-size: 0.9rem;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Submit button positioned absolutely inside input container */
+.search-form button {
+  
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #f1c40f;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #000000;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.search-form button:hover {
+  background-color: #d4ac0d;
+}
+
+/* Responsive Styles */
+@media (max-width: 1090px) {
+  .navbar {
+    height: 100px;
+  }
+  html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+   padding-top: 50px; /* Same as navbar height */
+}
+
+  .hamburger {
+    display: flex;
+    margin-right: 10px;
+  }
+  .search-form {margin-top: 0;}
+  .search-icon {
+   margin-top:0px;}
+
+  .nav-links {
+    position: absolute;
+    top: 100px;
+    right: 0;
+    background-color: #1b4332		;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    display: none;
+    transition: all 0.3s ease;
+    justify-content: center;
+  }
+
+  .nav-links.open {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+
+  .logo {
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+
+  .logo img {
+    height: 110px;
+    width: 130px;
+  }
+}
+

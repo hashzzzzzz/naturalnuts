@@ -1,0 +1,187 @@
+.product-card {
+  margin: 0px auto;
+  width: 600px;
+  height: 500px;
+  display: flex;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.left-side {
+  width: 43%;
+  background-color: #1b4332;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.left-content h2 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.left-content p {
+  font-size: 1.2rem;
+  margin-top: auto; /* This pushes the <p> to the bottom */
+  text-align: center;
+  padding-bottom: 10px;
+}
+.left-side h2 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+.left-side p {
+ text-align: center;
+ margin-left: 100px;
+  margin-top: 9px;           /* space below the title */
+  font-size: 1.2rem;
+  color: #fff;
+
+}
+.right-side {
+  width: 57%;
+  height: 100%;
+}
+
+.right-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.butoniporosite {
+  position: absolute;
+  top: 80%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  background-color: #1b4332;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 25px;      /* increased padding */
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1.4rem;       /* larger text */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width: 550px;            /* increased width */
+  z-index: 1;
+}
+
+.butoniporosite:hover {
+  background-color: rgb(255, 255, 255);
+  color: #1b4332;
+}
+
+
+/* ----- scale card down to 70% on mobile ----- */
+@media (max-width: 650px) {
+  .product-card {
+    width: calc(500px * 0.7);   /* 350px */
+    height: calc(500px * 0.7);  /* 350px */
+  }
+   .extra-margin {
+    margin-top: 3.3rem !important;
+  }
+  @media (max-width: 650px) {
+  .butoniporosite {
+    /* button stays pinned to bottom, do not add margin */
+    padding: 6px 15px;
+    width: 150px;
+    font-size: 1rem;
+  }
+}
+}
+ 
+.left-side {
+  width: 43%;
+  background-color: #1b4332;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Optional: Tweak spacing */
+.left-content h2 {
+  font-size: 1.8rem;
+  margin-bottom:0px;
+}
+
+.left-content p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  margin-left: 20px;
+}
+
+.left-side h2 {
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.right-side {
+  width: 57%;
+  height: 100%;
+}
+
+.left-side p {
+
+  margin-top: 100px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+
+.right-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.butoniporosite {
+  position: absolute;
+  top: 80%;
+  left: 38%;
+  transform: translate(-50%, -50%);
+  background-color: #1b4332;
+  color: white;
+  border: 2px solid white;
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  width:200px;
+  z-index: 1;
+}
+
+.butoniporosite:hover {
+  background-color: rgb(255, 255, 255);
+  color: #1b4332;
+}

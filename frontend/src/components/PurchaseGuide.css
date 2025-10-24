@@ -1,0 +1,203 @@
+
+  .guide-container {
+
+    max-width: 1300px;
+    height: 900px;
+    margin: 0px auto;
+    padding: 10px;
+    background-color: transparent;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 1s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .guide-title {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #2d6a4f;
+    font-weight: bold;
+  }
+
+  /* Grid layout with 3 columns on desktop */
+  .step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1rem , 0.2rem;
+    position: relative;
+  }
+
+  /* Step wrapper (circle + optional arrow) */
+  .step-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* Circular step */
+  .step-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #f1fdf4;
+    border: 6px solid #52b788;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .step-circle:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .step-icon {
+    font-size: 3rem;
+    color: #40916c;
+    margin-bottom: 0.75rem;
+  }
+
+  .step-content h2 {
+    font-size: 1.3rem;
+    color: #1b4332;
+    margin: 0.5rem 0;
+  }
+
+  .step-content p {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+  }
+
+  /* Desktop: Horizontal arrow */
+  .arrow {
+    top: -45%;
+  right: -109%;  width: 60px;
+    height: 2px;
+    background-color: #52b788;
+    margin: 1.5rem 0;
+    position: relative;
+  }
+
+  .arrow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: #52b788;
+  }
+
+  /* Make sure last step has no arrow */
+  .step-wrapper:last-child .arrow {
+    display: none;
+  }
+  .arrow-down {
+    top: -1%;
+    left: 50%;
+    width: 2px;
+    height: 50px;
+    background-color: #52b788;
+    position: relative;
+
+  }
+
+  .arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Place it at the bottom end */
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #52b788;
+  }
+
+  .arrow-custom {
+    transform: rotate(180deg);
+    margin-left: 5px;
+  }
+
+  .arrow-custom::after {
+    transform: translateY(-50%) rotate(360deg);
+  }
+
+
+  /* Mobile responsiveness */
+  @media (max-width: 1277px) {
+      .guide-container {
+    max-width: 1300px;
+    height: auto;
+    margin: 0px auto;
+    padding: 10px;
+    background-color: transparent;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 1s ease-in;
+  }
+
+    .step-grid {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+      padding-bottom: 50px;
+    }
+
+    .step-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  .arrow-custom::after {
+    transform: translateY(-50%) rotate(360deg);
+  }
+
+      .arrow-down.invert::after {
+    transform: translateX(-100%) rotate(180deg);
+  }
+
+    .step-circle {
+      width: 300px;
+      height: 300px;
+    }
+
+    .step-icon {
+      font-size: 2.2rem;
+    }
+  .arrow {
+    top: -1%;
+    left: 50%;
+    width: 2px;
+    height: 50px;
+    background-color: #52b788;
+    position: relative;
+
+  }
+
+  .arrow::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Place it at the bottom end */
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #52b788;
+  }
+  }
+
+  .guide-contact {
+    margin-top: 3rem;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #1b4332;
+  }

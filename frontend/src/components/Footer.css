@@ -1,0 +1,132 @@
+.footer {
+  margin-top: 0;
+  background-color: #1b4332;
+  color: #ffffff;
+  padding: 40px 20px 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0px; /* more spacing between items */
+  max-width: 1300px;
+  margin: auto;
+  text-align: center;
+}
+
+.footer-section {
+  flex: 1 1 250px;
+  min-width: 250px;
+  text-align: center;
+}
+
+.footer-section h2 {
+  color: #52b788;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.footer-section ul {
+  margin-bottom: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.footer-section ul li a:hover {
+  color: #95d5b2;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #40916c;
+  font-size: 0.9rem;
+  color: #d8f3dc;
+}
+
+.logo-footer {
+  text-align: center;
+}
+
+.footer-logo {
+  margin-top: 0px;
+  width: 220px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+/* Social Icons */
+.social-icons {
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: #ffffff;
+  margin: 0 8px;
+  font-size: 1.4rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.social-icons a:hover {
+  color: #95d5b2;
+}
+.footer-section.contact > * {
+  margin-bottom: 10px;
+}
+
+.footer-section.contact > *:last-child {
+  margin-bottom: 0;
+}
+
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 30px 15px 30px;
+  }
+
+  .footer-logo {
+    order: -1; 
+    width: 160px;
+    margin:auto;
+    margin-top: 34px;
+  }
+
+  .footer-section h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    margin-top: 50px;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 8px;
+  }
+
+  .footer-section.contact > * {
+    font-size: 0.95rem;
+
+  }
+
+  .social-icons a {
+    font-size: 1.2rem;
+    margin: 0 6px;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    
+  }
+}
