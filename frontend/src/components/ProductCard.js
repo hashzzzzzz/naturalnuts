@@ -42,7 +42,8 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
 
       <div className="right-side">
         {imageUrl ? (
-          <img src={`http://localhost:5000${imageUrl}`} alt={name} />
+         <img src={`https://naturalnuts.onrender.com${imageUrl}`} alt={name} />
+
         ) : (
           <div className="no-image">No Image</div>
         )}

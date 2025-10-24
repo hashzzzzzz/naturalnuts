@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import './AddProductForm.css'; // reuse the same CSS (or your shared CSS file)
 
 // Dynamic API URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+
 
 export default function EditProduct() {
   const { id: productId } = useParams();

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 // ✅ Dynamic backend URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+
 
 export default function DeleteProduct() {
   const [productId, setProductId] = useState('');

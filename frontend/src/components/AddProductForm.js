@@ -3,7 +3,8 @@ import axios from 'axios';
 import './AddProductForm.css';
 
 // ✅ Add dynamic backend URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
