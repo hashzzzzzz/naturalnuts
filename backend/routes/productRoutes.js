@@ -8,15 +8,17 @@ const router = express.Router();
 // Setup multer storage for uploaded images
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'assets'); // change from 'uploads' to 'assets'
+    cb(null, 'assets'); 
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname)); 
   }
 });
 
-
 const upload = multer({ storage: storage });
+
+// Get backend URL from env or fallback
+const BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
 // GET all products
 router.get('/', async (req, res) => {
@@ -35,9 +37,9 @@ router.post('/', upload.single('image'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'Image file is required' });
     }
-    // Image URL path accessible from frontend
-    const imageUrl = `/assets/${req.file.filename}`;
 
+    // ✅ Full URL for deployed backend
+    const imageUrl = `${BASE_URL}/assets/${req.file.filename}`;
 
     const newProduct = new Product({ name, price, imageUrl });
     await newProduct.save();
@@ -55,8 +57,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
     let updateData = { name, price };
 
     if (req.file) {
-     updateData.imageUrl = `/assets/${req.file.filename}`;
-
+      updateData.imageUrl = `${BASE_URL}/assets/${req.file.filename}`;
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(
