@@ -23,13 +23,14 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Clean and resolve image URL
-  const cleanImageUrl = imageUrl?.replace(/^"+|"+$/g, '').trim();
-  const resolvedImageUrl = cleanImageUrl
-    ? cleanImageUrl.startsWith('http')
-      ? cleanImageUrl
-      : `${API_BASE_URL}${cleanImageUrl.startsWith('/') ? '' : '/'}${cleanImageUrl}`
-    : null;
+  // ✅ Clean and resolve image URL safely
+  let resolvedImageUrl = null;
+  if (imageUrl) {
+    const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
+    resolvedImageUrl = cleanUrl.startsWith('http')
+      ? cleanUrl
+      : `${API_BASE_URL}${cleanUrl.startsWith('/') ? '' : '/'}${cleanUrl}`;
+  }
 
   return (
     <div className="product-card" data-id={id}>
