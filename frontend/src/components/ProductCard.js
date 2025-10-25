@@ -23,11 +23,12 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Resolve image URL
-  const resolvedImageUrl = imageUrl
-    ? imageUrl.startsWith('http')
-      ? imageUrl
-      : `${API_BASE_URL}${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`
+  // ✅ Clean and resolve image URL
+  const cleanImageUrl = imageUrl?.replace(/^"+|"+$/g, '').trim();
+  const resolvedImageUrl = cleanImageUrl
+    ? cleanImageUrl.startsWith('http')
+      ? cleanImageUrl
+      : `${API_BASE_URL}${cleanImageUrl.startsWith('/') ? '' : '/'}${cleanImageUrl}`
     : null;
 
   return (
