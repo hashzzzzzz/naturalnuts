@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 // Get backend URL from env or fallback
 const BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
+
 // GET all products
 router.get('/', async (req, res) => {
   try {
