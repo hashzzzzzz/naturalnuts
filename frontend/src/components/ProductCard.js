@@ -24,13 +24,20 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
   }
 
   // ✅ Clean and resolve image URL safely
-  let resolvedImageUrl = null;
-  if (imageUrl) {
-    const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
-    resolvedImageUrl = cleanUrl.startsWith('http')
-      ? cleanUrl
-      : `${API_BASE_URL}${cleanUrl.startsWith('/') ? '' : '/'}${cleanUrl}`;
+// ✅ Clean and resolve image URL safely
+let resolvedImageUrl = null;
+if (imageUrl) {
+  const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
+
+  // If the URL already starts with http/https, use it as is
+  if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+    resolvedImageUrl = cleanUrl;
+  } else {
+    // Otherwise, prepend API_BASE_URL for relative paths
+    resolvedImageUrl = `${API_BASE_URL}${cleanUrl.startsWith('/') ? '' : '/'}${cleanUrl}`;
   }
+}
+
 
   return (
     <div className="product-card" data-id={id}>
