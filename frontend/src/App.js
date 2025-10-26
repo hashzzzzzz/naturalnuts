@@ -19,7 +19,8 @@ import Login from './components/Login';  // <-- New Login component (create it)
 import EditProductIDInput from './components/EditProductId';
 
 // Add this to make the backend URL dynamic
-const API_BASE_URL = 'https://naturalnuts.onrender.com'; // live backend
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+
 
 function ProtectedRoute({ loggedIn, children }) {
   if (!loggedIn) {
