@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// ✅ Use dynamic backend URL from environment variable or fallback to Render URL
+// ✅ Base API URL (Render or environment)
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
 const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Track screen size
   useEffect(() => {
     const handleResize = () => setIsSmallScreen(window.innerWidth <= 650);
-    handleResize(); // initial check
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Determine margin-top for price on small screens
   let extraMarginTop = 0;
   if (isSmallScreen) {
     if (name.length <= 8) extraMarginTop = 60;
@@ -23,25 +21,20 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Clean and resolve image URL safely (handles localhost + relative paths)
+  // ✅ Smart image URL resolver (final)
   let resolvedImageUrl = null;
 
   if (imageUrl) {
-    const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
+    let cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
 
-    if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
-      // 🧩 If image is full URL but includes localhost, rebuild it with API_BASE_URL
-      if (cleanUrl.includes('localhost')) {
-        const filename = cleanUrl.split('/').pop(); // get the image name
-        resolvedImageUrl = `${API_BASE_URL}/assets/${filename}`;
-      } else {
-        resolvedImageUrl = cleanUrl; // already correct
-      }
-    } else {
-      // 🧩 For relative paths like "uploads/..." or "/uploads/..."
-      const normalizedPath = cleanUrl.replace(/^\/+/, '');
-      resolvedImageUrl = `${API_BASE_URL}/${normalizedPath}`;
-    }
+    // 🔧 Remove any localhost or base URL duplications
+    cleanUrl = cleanUrl
+      .replace(/^https?:\/\/localhost:\d+/i, '') // remove localhost prefix
+      .replace(API_BASE_URL, '') // remove base URL if already there
+      .replace(/^\/+/, ''); // remove leading slashes
+
+    // ✅ Build final URL cleanly
+    resolvedImageUrl = `${API_BASE_URL}/${cleanUrl}`;
   }
 
   return (

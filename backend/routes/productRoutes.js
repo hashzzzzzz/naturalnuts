@@ -5,41 +5,47 @@ import Product from '../models/Product.js';
 
 const router = express.Router();
 
-// Setup multer storage for uploaded images
+// Setup multer storage
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'assets'); 
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); 
-  }
+  destination: (req, file, cb) => cb(null, 'assets'),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-// Get backend URL from env or fallback
-const BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
-
+// ✅ Backend BASE_URL
+const BASE_URL = process.env.BASE_URL || 'https://naturalnuts.onrender.com';
 
 // GET all products
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
-    res.json(products);
+
+    // 🔹 Sanitize old localhost URLs automatically
+    const cleanedProducts = products.map((p) => {
+      let cleanUrl = p.imageUrl || '';
+      // remove any localhost or duplicate BASE_URL
+      cleanUrl = cleanUrl.replace(/^https?:\/\/localhost:\d+/i, '')
+                         .replace(BASE_URL, '')
+                         .replace(/^\/+/, '');
+      return {
+        ...p.toObject(),
+        imageUrl: `${BASE_URL}/${cleanUrl}`,
+      };
+    });
+
+    res.json(cleanedProducts);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch products', error });
   }
 });
 
-// POST create product with image upload
+// POST create product
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { name, price } = req.body;
-    if (!req.file) {
-      return res.status(400).json({ message: 'Image file is required' });
-    }
+    if (!req.file) return res.status(400).json({ message: 'Image file is required' });
 
-    // ✅ Full URL for deployed backend
     const imageUrl = `${BASE_URL}/assets/${req.file.filename}`;
 
     const newProduct = new Product({ name, price, imageUrl });
@@ -51,7 +57,7 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 });
 
-// PUT update product (optional: also update image)
+// PUT update product
 router.put('/:id', upload.single('image'), async (req, res) => {
   try {
     const { name, price } = req.body;
@@ -67,9 +73,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       { new: true }
     );
 
-    if (!updatedProduct) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
+    if (!updatedProduct) return res.status(404).json({ message: 'Product not found' });
 
     res.json(updatedProduct);
   } catch (error) {
@@ -77,7 +81,7 @@ router.put('/:id', upload.single('image'), async (req, res) => {
   }
 });
 
-// DELETE product by id
+// DELETE product
 router.delete('/:id', async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
