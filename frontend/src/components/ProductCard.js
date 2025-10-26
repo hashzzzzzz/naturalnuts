@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// Base API URL (Render or environment)
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
-
-const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
+const ProductCard = ({ product, onOrderClick }) => {
+  const { _id, name, imageUrl, price } = product;
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -14,50 +12,31 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  let extraMarginTop = 0;
-  if (isSmallScreen) {
-    if (name.length <= 8) extraMarginTop = 60;
-    else if (name.length <= 17) extraMarginTop = 30;
-    else if (name.length <= 25) extraMarginTop = 20;
-  }
-
-  // ✅ Fix image URL
-  let resolvedImageUrl = null;
-  if (imageUrl) {
-    let cleanUrl = imageUrl.trim().replace(/^"+|"+$/g, '');
-
-    // Use the URL as-is if it's already absolute
-    if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
-      resolvedImageUrl = cleanUrl;
-    } else {
-      // Otherwise prepend the API base URL for relative paths
-      resolvedImageUrl = `${API_BASE_URL}/${cleanUrl.replace(/^\/+/, '')}`;
-    }
-  }
+  const extraMarginTop =
+    isSmallScreen && name.length <= 8 ? 60 :
+    isSmallScreen && name.length <= 17 ? 30 :
+    isSmallScreen && name.length <= 25 ? 20 : 0;
 
   return (
-    <div className="product-card" data-id={id}>
+    <div className="product-card" data-id={_id}>
       <div className="left-side">
         <div className="left-content">
           <h2 className="h22">{name}</h2>
-          <p
-            className="p22"
-            style={{ marginTop: isSmallScreen ? `${extraMarginTop}px` : undefined }}
-          >
+          <p className="p22" style={{ marginTop: extraMarginTop }}>
             1kg {price != null ? `$${price.toFixed(2)}` : 'No price yet'}
           </p>
         </div>
       </div>
 
       <div className="right-side">
-        {resolvedImageUrl ? (
-          <img src={resolvedImageUrl} alt={name} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={name} />
         ) : (
           <div className="no-image">No Image</div>
         )}
       </div>
 
-      <button className="butoniporosite" onClick={() => onOrderClick(id)}>
+      <button className="butoniporosite" onClick={() => onOrderClick(_id)}>
         Porosite
       </button>
     </div>
