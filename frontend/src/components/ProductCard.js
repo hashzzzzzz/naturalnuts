@@ -23,16 +23,22 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Clean and resolve image URL safely (fixed version)
+  // ✅ Clean and resolve image URL safely (handles localhost + relative paths)
   let resolvedImageUrl = null;
+
   if (imageUrl) {
     const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
 
     if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
-      // Use absolute URLs directly
-      resolvedImageUrl = cleanUrl;
+      // 🧩 If image is full URL but includes localhost, rebuild it with API_BASE_URL
+      if (cleanUrl.includes('localhost')) {
+        const filename = cleanUrl.split('/').pop(); // get the image name
+        resolvedImageUrl = `${API_BASE_URL}/assets/${filename}`;
+      } else {
+        resolvedImageUrl = cleanUrl; // already correct
+      }
     } else {
-      // Ensure exactly one "/" between base URL and path
+      // 🧩 For relative paths like "uploads/..." or "/uploads/..."
       const normalizedPath = cleanUrl.replace(/^\/+/, '');
       resolvedImageUrl = `${API_BASE_URL}/${normalizedPath}`;
     }
