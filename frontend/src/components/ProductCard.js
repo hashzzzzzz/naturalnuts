@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// Use your backend base URL for relative image paths
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
-
 const ProductCard = ({ product, onOrderClick }) => {
   const { _id, name, imageUrl, price } = product;
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -22,13 +19,6 @@ const ProductCard = ({ product, onOrderClick }) => {
     isSmallScreen && name.length <= 17 ? 30 :
     isSmallScreen && name.length <= 25 ? 20 : 0;
 
-  // Determine final image URL
-  const finalImageUrl = imageUrl
-    ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
-      ? imageUrl // use absolute URL from DB
-      : `${API_BASE_URL}/${imageUrl.replace(/^\/+/, '')}` // prepend backend if relative
-    : null;
-
   return (
     <div className="product-card" data-id={_id}>
       <div className="left-side">
@@ -41,8 +31,8 @@ const ProductCard = ({ product, onOrderClick }) => {
       </div>
 
       <div className="right-side">
-        {finalImageUrl ? (
-          <img src={finalImageUrl} alt={name} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={name} />
         ) : (
           <div className="no-image">No Image</div>
         )}
