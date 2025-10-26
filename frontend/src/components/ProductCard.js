@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// ✅ Use dynamic backend URL from environment variable
+// ✅ Use dynamic backend URL from environment variable or fallback to Render URL
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
 const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
@@ -23,21 +23,20 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Clean and resolve image URL safely
-// ✅ Clean and resolve image URL safely
-let resolvedImageUrl = null;
-if (imageUrl) {
-  const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
+  // ✅ Clean and resolve image URL safely (fixed version)
+  let resolvedImageUrl = null;
+  if (imageUrl) {
+    const cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
 
-  // If the URL already starts with http/https, use it as is
-  if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
-    resolvedImageUrl = cleanUrl;
-  } else {
-    // Otherwise, prepend API_BASE_URL for relative paths
-    resolvedImageUrl = `${API_BASE_URL}${cleanUrl.startsWith('/') ? '' : '/'}${cleanUrl}`;
+    if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+      // Use absolute URLs directly
+      resolvedImageUrl = cleanUrl;
+    } else {
+      // Ensure exactly one "/" between base URL and path
+      const normalizedPath = cleanUrl.replace(/^\/+/, '');
+      resolvedImageUrl = `${API_BASE_URL}/${normalizedPath}`;
+    }
   }
-}
-
 
   return (
     <div className="product-card" data-id={id}>
