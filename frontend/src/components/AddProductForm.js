@@ -53,7 +53,7 @@ const AddProductForm = () => {
       formData.append('price', parseFloat(price));
       formData.append('image', imageFile);
 
-      const response = await axios.post(`${API_BASE_URL}/api/products`, formData, {
+      const response = await axios.post(`${API_BASE_URL}api/products`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
