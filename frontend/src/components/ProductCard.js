@@ -36,7 +36,7 @@ const ProductCard = ({ product, onOrderClick }) => {
         )}
       </div>
 
-      <button className="butoniporosite" onClick={() => onOrderClick(_id)}>
+      <button className="butoniporosite" onClick={() => onOrderClick(product)}>
         Porosite
       </button>
     </div>
