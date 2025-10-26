@@ -36,7 +36,7 @@ function HomePage({ searchQuery }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  axios.get(`${API_BASE_URL}/api/products`)
+  axios.get(`${API_BASE_URL}api/products`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
