@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// ✅ Base API URL (Render or environment)
+// Base API URL (Render or environment)
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
 const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
@@ -21,20 +21,18 @@ const ProductCard = ({ id, name, imageUrl, price, onOrderClick }) => {
     else if (name.length <= 25) extraMarginTop = 20;
   }
 
-  // ✅ Smart image URL resolver (final)
+  // ✅ Fix image URL
   let resolvedImageUrl = null;
-
   if (imageUrl) {
-    let cleanUrl = imageUrl.replace(/^"+|"+$/g, '').trim();
+    let cleanUrl = imageUrl.trim().replace(/^"+|"+$/g, '');
 
-    // 🔧 Remove any localhost or base URL duplications
-    cleanUrl = cleanUrl
-      .replace(/^https?:\/\/localhost:\d+/i, '') // remove localhost prefix
-      .replace(API_BASE_URL, '') // remove base URL if already there
-      .replace(/^\/+/, ''); // remove leading slashes
-
-    // ✅ Build final URL cleanly
-    resolvedImageUrl = `${API_BASE_URL}/${cleanUrl}`;
+    // Use the URL as-is if it's already absolute
+    if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+      resolvedImageUrl = cleanUrl;
+    } else {
+      // Otherwise prepend the API base URL for relative paths
+      resolvedImageUrl = `${API_BASE_URL}/${cleanUrl.replace(/^\/+/, '')}`;
+    }
   }
 
   return (
