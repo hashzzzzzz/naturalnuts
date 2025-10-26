@@ -17,6 +17,12 @@ const ProductCard = ({ product, onOrderClick }) => {
     isSmallScreen && name.length <= 17 ? 30 :
     isSmallScreen && name.length <= 25 ? 20 : 0;
 
+  // ✅ Use imageUrl exactly as it comes from DB if it starts with http/https
+  const finalImageUrl =
+    imageUrl?.startsWith('http://') || imageUrl?.startsWith('https://')
+      ? imageUrl
+      : imageUrl; // relative paths can stay as-is
+
   return (
     <div className="product-card" data-id={_id}>
       <div className="left-side">
@@ -29,8 +35,8 @@ const ProductCard = ({ product, onOrderClick }) => {
       </div>
 
       <div className="right-side">
-        {imageUrl ? (
-          <img src={imageUrl} alt={name} />
+        {finalImageUrl ? (
+          <img src={finalImageUrl} alt={name} />
         ) : (
           <div className="no-image">No Image</div>
         )}
