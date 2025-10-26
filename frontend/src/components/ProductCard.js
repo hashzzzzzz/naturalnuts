@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './ProductCard.css';
 
-// ✅ Optional: set your backend base URL here if needed for relative paths
+// Use your backend base URL for relative image paths
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
 
 const ProductCard = ({ product, onOrderClick }) => {
   const { _id, name, imageUrl, price } = product;
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+  // Track screen size to adjust text margins
   useEffect(() => {
     const handleResize = () => setIsSmallScreen(window.innerWidth <= 650);
     handleResize();
@@ -15,16 +16,17 @@ const ProductCard = ({ product, onOrderClick }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Extra margin for small screens based on name length
   const extraMarginTop =
     isSmallScreen && name.length <= 8 ? 60 :
     isSmallScreen && name.length <= 17 ? 30 :
     isSmallScreen && name.length <= 25 ? 20 : 0;
 
-  // ✅ Correct image handling
+  // Determine final image URL
   const finalImageUrl = imageUrl
     ? imageUrl.startsWith('http://') || imageUrl.startsWith('https://')
-      ? imageUrl // use absolute URLs as-is
-      : `${API_BASE_URL}/${imageUrl.replace(/^\/+/, '')}` // prepend backend for relative paths
+      ? imageUrl // use absolute URL from DB
+      : `${API_BASE_URL}/${imageUrl.replace(/^\/+/, '')}` // prepend backend if relative
     : null;
 
   return (
