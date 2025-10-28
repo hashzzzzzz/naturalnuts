@@ -11,6 +11,10 @@ const Footer = () => {
   const handleLinkClick = (id) => {
     if (id === 'contact') {
       navigate('/contactus');
+      // ✅ Force scroll to top when going to contact page
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
       return;
     }
 
@@ -29,6 +33,9 @@ const Footer = () => {
   const handleLogoClick = () => {
     if (location.pathname !== '/') {
       navigate('/');
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -43,7 +50,7 @@ const Footer = () => {
           <h2>Linqe të Shpejta</h2>
           <ul>
             <li onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Ballina</li>
-            <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
+            <li onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
             <li onClick={() => handleLinkClick('product-list')} style={{ cursor: 'pointer' }}>Produktet</li>
             <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Kontakti</li>
           </ul>
