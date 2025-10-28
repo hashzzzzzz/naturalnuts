@@ -25,7 +25,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <meta name="theme-color" content="#013220" />
+    <meta name="theme-color" content="#1b4332" />
     <meta name="description" content="Natural Nuts Online Store - PWA" />
 
     <!-- Apple devices icon -->
@@ -35,11 +35,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Natural Nuts" />
-    <meta name="msapplication-TileColor" content="#013220" />
+    <meta name="msapplication-TileColor" content="#1b4332" />
 
     <title>Natural Nuts</title>
 
-    <!-- Prevent horizontal scroll -->
+    <!-- Prevent horizontal scroll globally -->
     <style>
       html, body {
         overflow-x: hidden;
@@ -47,6 +47,11 @@
         padding: 0;
         width: 100%;
         font-family: 'Poppins', sans-serif;
+      }
+
+      /* Optional: fix navbar area for notch devices */
+      body {
+        padding-top: env(safe-area-inset-top);
       }
     </style>
   </head>
