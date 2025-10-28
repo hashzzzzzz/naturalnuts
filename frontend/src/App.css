@@ -56,22 +56,25 @@ body > * {
 .scroll-target {
   scroll-margin-top: 120px;
 }
-
+/* Mobile Horizontal Scroll Fix */
 @media (max-width: 1090px) {
-  .scroll-target {
-    scroll-margin-top: 100px;
+  html, body, #root, .app-container {
+    overflow-x: hidden !important; /* Force no horizontal scroll */
   }
 
-  .full-width-image {
-    width: 100%;
-    max-width: 100%;
+  /* Force all children to stay within viewport */
+  * {
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 
-  .navbar-content {
-    max-width: 100%;
-  }
-
-  .nav-links {
-    width: 100%; /* force mobile menu to stay within screen */
+  /* Extra safety: prevent mobile nav links or images from overflowing */
+  .full-width-image,
+  .navbar,
+  .navbar-content,
+  .nav-links,
+  .nav-links li {
+    max-width: 100% !important;
   }
 }
+
