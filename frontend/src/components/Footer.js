@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Footer.css';
 import logo from '../assets/naturalnutslogofin.png';
 import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa6';
@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [scrollTarget, setScrollTarget] = useState(null);
 
   const handleLinkClick = (id) => {
     if (id === 'contact') {
@@ -16,8 +15,11 @@ const Footer = () => {
     }
 
     if (location.pathname !== '/') {
-      setScrollTarget(id);
       navigate('/');
+      setTimeout(() => {
+        const section = document.getElementById(id);
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
     } else {
       const section = document.getElementById(id);
       if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -32,37 +34,22 @@ const Footer = () => {
     }
   };
 
-  // 👇 the only new part that actually fixes the issue
-  useEffect(() => {
-    if (scrollTarget) {
-      const tryScroll = () => {
-        const section = document.getElementById(scrollTarget);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-          setScrollTarget(null);
-        } else {
-          // retry until element appears (for slow render on mobile)
-          setTimeout(tryScroll, 150);
-        }
-      };
-      tryScroll();
-    }
-  }, [location.pathname, scrollTarget]);
-
   return (
     <footer className="footer">
       <div className="footer-container">
 
+        {/* Links first */}
         <div className="footer-section links">
           <h2>Linqe të Shpejta</h2>
           <ul>
             <li onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Ballina</li>
-            <li onClick={() => handleLinkClick('about-us')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
+            <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
             <li onClick={() => handleLinkClick('product-list')} style={{ cursor: 'pointer' }}>Produktet</li>
             <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Kontakti</li>
           </ul>
         </div>
 
+        {/* Logo second */}
         <div className="footer-section logo-footer" id="footer-logo">
           <img
             src={logo}
@@ -73,6 +60,7 @@ const Footer = () => {
           />
         </div>
 
+        {/* Contact third */}
         <div className="footer-section contact">
           <h2 className='cont'>Kontakti</h2>
           <p>Ferizaj, Kosovë</p>
