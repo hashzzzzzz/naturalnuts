@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Footer.css';
 import logo from '../assets/naturalnutslogofin.png';
 import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa6';
@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [scrollTarget, setScrollTarget] = useState(null);
 
   const handleLinkClick = (id) => {
     if (id === 'contact') {
@@ -15,11 +16,8 @@ const Footer = () => {
     }
 
     if (location.pathname !== '/') {
+      setScrollTarget(id); // Save target for scrolling after route change
       navigate('/');
-      setTimeout(() => {
-        const section = document.getElementById(id);
-        if (section) section.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
     } else {
       const section = document.getElementById(id);
       if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -34,6 +32,16 @@ const Footer = () => {
     }
   };
 
+  useEffect(() => {
+    if (scrollTarget) {
+      const section = document.getElementById(scrollTarget);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        setScrollTarget(null);
+      }
+    }
+  }, [location.pathname, scrollTarget]);
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -43,7 +51,7 @@ const Footer = () => {
           <h2>Linqe të Shpejta</h2>
           <ul>
             <li onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Ballina</li>
-            <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
+            <li onClick={() => handleLinkClick('about-us')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
             <li onClick={() => handleLinkClick('product-list')} style={{ cursor: 'pointer' }}>Produktet</li>
             <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Kontakti</li>
           </ul>
