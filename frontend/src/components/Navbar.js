@@ -15,12 +15,15 @@ const Navbar = ({ onSearch }) => {
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleSearch = () => setSearchVisible((prev) => !prev);
 
-  const handleLinkClick = (id) => {
+  const handleLinkClick = (id, e) => {
+    if (e) e.currentTarget.blur(); // remove focus to hide cursor
+
     if (id === 'contact') {
       navigate('/contactus');
       setMenuOpen(false);
       return;
     }
+
     if (location.pathname !== '/') {
       navigate('/');
       setTimeout(() => {
@@ -31,10 +34,12 @@ const Navbar = ({ onSearch }) => {
       const section = document.getElementById(id);
       if (section) section.scrollIntoView({ behavior: 'smooth' });
     }
+
     setMenuOpen(false);
   };
 
-  const handleLogoClick = () => {
+  const handleLogoClick = (e) => {
+    if (e) e.currentTarget.blur(); // remove focus
     if (location.pathname !== '/') {
       navigate('/');
     } else {
@@ -44,23 +49,21 @@ const Navbar = ({ onSearch }) => {
   };
 
   // Live search on every key press
-const handleInputChange = (e) => {
-  const value = e.target.value;
-  setSearchInput(value);
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchInput(value);
 
-  // send value up instantly
-  if (onSearch) onSearch(value);
+    if (onSearch) onSearch(value);
 
-  // ✅ automatically go to Products section on keyup
-  handleLinkClick('product-list');
-};
-
+    // automatically go to Products section on keyup
+    handleLinkClick('product-list');
+  };
 
   // Optional submit button (for aesthetics)
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (onSearch) onSearch(searchInput); // also trigger search on submit
-    setSearchVisible(false); // hide search bar if you want
+    if (onSearch) onSearch(searchInput);
+    setSearchVisible(false);
   };
 
   useEffect(() => {
@@ -115,10 +118,10 @@ const handleInputChange = (e) => {
 
           {/* MAIN LINKS */}
           <li onClick={handleLogoClick}>Ballina</li>
-          <li onClick={() => handleLinkClick('product-list')}>Produktet</li>
-          <li onClick={() => handleLinkClick('contact')}>Kontakti</li>
+          <li onClick={(e) => handleLinkClick('product-list', e)}>Produktet</li>
+          <li onClick={(e) => handleLinkClick('contact', e)}>Kontakti</li>
           <li>
-            <button onClick={() => handleLinkClick('purchase-guide')} className="button">
+            <button onClick={(e) => handleLinkClick('purchase-guide', e)} className="button">
               Blej Tash
             </button>
           </li>
