@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import './AddProductForm.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com/'; // ensure trailing slash
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
@@ -56,6 +56,9 @@ const AddProductForm = () => {
       const response = await axios.post(`${API_BASE_URL}api/products`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+
+      // Update preview to show the actual Cloudinary URL
+      setImageUrl(response.data.imageUrl);
 
       console.log('Product created:', response.data);
       alert('Product added successfully!');
