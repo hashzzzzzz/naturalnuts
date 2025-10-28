@@ -51,16 +51,16 @@ const Footer = () => {
           <h2>Linqe të Shpejta</h2>
           <ul>
             <li>
-              <button onClick={handleLogoClick} className="footer-link">Ballina</button>
+              <button className="footer-btn" onClick={handleLogoClick}>Ballina</button>
             </li>
             <li>
-              <button onClick={() => handleLinkClick('about-us')} className="footer-link">Rreth Nesh</button>
+              <button className="footer-btn" onClick={() => handleLinkClick('about-us')}>Rreth Nesh</button>
             </li>
             <li>
-              <button onClick={() => handleLinkClick('product-list')} className="footer-link">Produktet</button>
+              <button className="footer-btn" onClick={() => handleLinkClick('product-list')}>Produktet</button>
             </li>
             <li>
-              <button onClick={() => handleLinkClick('contact')} className="footer-link">Kontakti</button>
+              <button className="footer-btn" onClick={() => handleLinkClick('contact')}>Kontakti</button>
             </li>
           </ul>
         </div>
@@ -72,7 +72,6 @@ const Footer = () => {
             alt="Natural Nuts Logo"
             className="footer-logo"
             onClick={handleLogoClick}
-            style={{ cursor: 'pointer' }}
           />
         </div>
 
