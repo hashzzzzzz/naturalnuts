@@ -50,10 +50,18 @@ const Footer = () => {
         <div className="footer-section links">
           <h2>Linqe të Shpejta</h2>
           <ul>
-            <li onClick={handleLogoClick} style={{ cursor: 'pointer' }}>Ballina</li>
-            <li onClick={() => handleLinkClick('about-us')} style={{ cursor: 'pointer' }}>Rreth Nesh</li>
-            <li onClick={() => handleLinkClick('product-list')} style={{ cursor: 'pointer' }}>Produktet</li>
-            <li onClick={() => handleLinkClick('contact')} style={{ cursor: 'pointer' }}>Kontakti</li>
+            <li>
+              <button onClick={handleLogoClick} className="footer-link">Ballina</button>
+            </li>
+            <li>
+              <button onClick={() => handleLinkClick('about-us')} className="footer-link">Rreth Nesh</button>
+            </li>
+            <li>
+              <button onClick={() => handleLinkClick('product-list')} className="footer-link">Produktet</button>
+            </li>
+            <li>
+              <button onClick={() => handleLinkClick('contact')} className="footer-link">Kontakti</button>
+            </li>
           </ul>
         </div>
 
