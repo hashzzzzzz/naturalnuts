@@ -56,6 +56,7 @@ body > * {
 .scroll-target {
   scroll-margin-top: 120px;
 }
+
 /* Mobile Horizontal Scroll Fix */
 @media (max-width: 1090px) {
   html, body, #root, .app-container {
@@ -78,3 +79,29 @@ body > * {
   }
 }
 
+/* ========================= */
+/* Prevent blinking | cursor on non-input elements (Desktop Fix) */
+button:focus,
+li:focus,
+a:focus {
+  outline: none;
+}
+
+/* Keep outline on real inputs */
+input:focus,
+textarea:focus {
+  outline: auto;
+}
+
+/* Optional: blur buttons and links after click to fully remove caret */
+button,
+li,
+a {
+  user-select: none; /* prevent accidental text selection */
+}
+
+button,
+li,
+a {
+  -webkit-tap-highlight-color: transparent; /* remove highlight on mobile */
+}
