@@ -117,9 +117,9 @@ const Navbar = ({ onSearch }) => {
           </li>
 
           {/* MAIN LINKS */}
-          <li onClick={handleLogoClick}>Ballina</li>
-          <li onClick={(e) => handleLinkClick('product-list', e)}>Produktet</li>
-          <li onClick={(e) => handleLinkClick('contact', e)}>Kontakti</li>
+          <li tabIndex={-1} onClick={handleLogoClick}>Ballina</li>
+          <li tabIndex={-1} onClick={(e) => handleLinkClick('product-list', e)}>Produktet</li>
+          <li tabIndex={-1} onClick={(e) => handleLinkClick('contact', e)}>Kontakti</li>
           <li>
             <button onClick={(e) => handleLinkClick('purchase-guide', e)} className="button">
               Blej Tash
