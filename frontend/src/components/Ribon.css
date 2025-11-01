@@ -29,7 +29,7 @@
   display: inline-block;
 }
 
-/* single span scroll animation */
+/* Single span scroll, runs forwards (not infinite) */
 @keyframes scrollSingle {
   0% {
     transform: translateX(100%);

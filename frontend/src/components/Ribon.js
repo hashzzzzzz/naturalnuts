@@ -26,26 +26,25 @@ const Ribon = () => {
     const containerWidth = ribbonRef.current.offsetWidth;
     const spans = Array.from(textRef.current.children);
 
-    // Constant speed in pixels/sec
-    let PIXELS_PER_SECOND = 120; // default speed
+    // Speed in pixels/sec
+    let PIXELS_PER_SECOND = containerWidth < 1090 ? 180 : 120;
 
-    // Increase speed for devices narrower than 1090px
-    if (containerWidth < 1090) PIXELS_PER_SECOND = 180;
+    let totalDelay = 0;
 
     spans.forEach((span, index) => {
       const spanWidth = span.offsetWidth;
       const distance = containerWidth + spanWidth;
 
-      // Duration for this span to fully scroll
       const duration = distance / PIXELS_PER_SECOND;
 
-      // Delay start of next span so they don't overlap
-      const delay = index === 0 ? 0 : spans
-        .slice(0, index)
-        .reduce((acc, prevSpan) => acc + (containerWidth + prevSpan.offsetWidth) / PIXELS_PER_SECOND, 0);
+      // Each span starts after the previous span finishes
+      span.style.animation = `scrollSingle ${duration}s linear ${totalDelay}s forwards`;
 
-      span.style.animation = `scrollSingle ${duration}s linear ${delay}s infinite`;
-      span.style.marginRight = `${containerWidth * 0.2}px`; // spacing between spans
+      // Update totalDelay for next span
+      totalDelay += duration;
+
+      // Optional spacing between spans visually
+      span.style.marginRight = `${containerWidth * 0.2}px`;
     });
   }, [animate]);
 
