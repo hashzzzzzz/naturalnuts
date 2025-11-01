@@ -19,18 +19,17 @@
 body.popup-open {
   overflow: hidden;
 }
-/* Popup container */
-.popup-form {
-  /* Remove internal scroll & height limits */
-  max-height: none;             /* ❌ remove 90vh limit */
-  overflow-y: visible;          /* ❌ allow content to flow normally */
 
-  margin: 100px auto;           /* ✅ centers horizontally */
+/* Popup Container */
+.popup-form {
+  max-height: 90vh;     
+  overflow-y: auto;  
+  margin-top: 100px;
   background: #fff;
-  padding: 3rem;
+  padding: 3rem;               /* increased padding */
   border-radius: 16px;
   width: 100%;
-  max-width: 480px;
+  max-width: 480px;            /* increased max-width */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
