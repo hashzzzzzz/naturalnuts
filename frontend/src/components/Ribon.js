@@ -23,23 +23,29 @@ const Ribon = () => {
   useEffect(() => {
     if (!animate || !textRef.current || !ribbonRef.current) return;
 
-    const textWidth = textRef.current.scrollWidth;
     const containerWidth = ribbonRef.current.offsetWidth;
+    const spans = Array.from(textRef.current.children);
 
-    // **Set constant speed in pixels per second**
-    const PIXELS_PER_SECOND = 100; // change this to make it faster/slower
+    // Constant speed in pixels/sec
+    let PIXELS_PER_SECOND = 120; // default speed
 
-    // Calculate duration based on total distance
-    const distance = textWidth + containerWidth;
-    const duration = distance / PIXELS_PER_SECOND;
+    // Increase speed for devices narrower than 1090px
+    if (containerWidth < 1090) PIXELS_PER_SECOND = 180;
 
-    // Apply animation dynamically
-    textRef.current.style.animation = `scrollText ${duration}s linear infinite`;
+    spans.forEach((span, index) => {
+      const spanWidth = span.offsetWidth;
+      const distance = containerWidth + spanWidth;
 
-    // Adjust spacing between spans dynamically based on container width
-    const spanMargin = Math.max(containerWidth * 0.1, 150); // 10% of screen width or minimum 150px
-    Array.from(textRef.current.children).forEach(span => {
-      span.style.marginRight = `${spanMargin}px`;
+      // Duration for this span to fully scroll
+      const duration = distance / PIXELS_PER_SECOND;
+
+      // Delay start of next span so they don't overlap
+      const delay = index === 0 ? 0 : spans
+        .slice(0, index)
+        .reduce((acc, prevSpan) => acc + (containerWidth + prevSpan.offsetWidth) / PIXELS_PER_SECOND, 0);
+
+      span.style.animation = `scrollSingle ${duration}s linear ${delay}s infinite`;
+      span.style.marginRight = `${containerWidth * 0.2}px`; // spacing between spans
     });
   }, [animate]);
 

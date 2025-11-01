@@ -29,7 +29,8 @@
   display: inline-block;
 }
 
-@keyframes scrollText {
+/* single span scroll animation */
+@keyframes scrollSingle {
   0% {
     transform: translateX(100%);
   }
