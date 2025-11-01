@@ -20,14 +20,14 @@ body.popup-open {
   overflow: hidden;
 }
 
-/* Popup Container */
 .popup-form {
-  margin-top: 100px;
   background: #fff;
-  padding: 3rem;               /* increased padding */
+  padding: 3rem;
   border-radius: 16px;
   width: 100%;
-  max-width: 480px;            /* increased max-width */
+  max-width: 480px;
+  max-height: 90vh; /* ✅ scroll inside popup */
+  overflow-y: auto; /* ✅ makes content scrollable */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
