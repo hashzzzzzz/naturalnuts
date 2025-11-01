@@ -7,11 +7,13 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
+  align-items: flex-start;  /* stick to top so scroll works */
   justify-content: center;
   z-index: 999;
   animation: fadeInBackdrop 0.3s ease;
-  overflow-y: auto;
+  padding: 1rem;            /* safe padding for small screens */
+  overflow-y: auto;         /* scroll if popup too tall */
+  box-sizing: border-box;
 }
 
 /* Disable background scroll when popup is open */
@@ -20,23 +22,26 @@ body.popup-open {
 }
 
 /* Popup Container */
-.popup-form {
-  margin-top: 100px;
+.popup-form,
+.popup-form1 {
+  margin: 1rem 0;           /* give room for scrolling */
   background: #fff;
-  padding: 3rem;               /* increased padding */
+  padding: 3rem;             /* keep your original padding */
   border-radius: 16px;
   width: 100%;
-  max-width: 480px;            /* increased max-width */
+  max-width: 480px;          /* keep original max-width */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   animation: slideUp 0.3s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   box-sizing: border-box;
+  max-height: 90vh;          /* never exceed viewport */
+  overflow-y: auto;          /* scroll inside popup if needed */
 }
 
 /* Title */
 .popup-form h2 {
   margin-bottom: 1.5rem;
-  font-size: 26px;             /* bigger font */
+  font-size: 26px;
   color: #008080;
   text-align: center;
 }
@@ -44,11 +49,11 @@ body.popup-open {
 /* Inputs */
 .popup-form input {
   width: 100%;
-  padding: 14px 16px;          /* bigger padding */
+  padding: 14px 16px;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 16px;             /* bigger font */
+  font-size: 16px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -63,13 +68,13 @@ body.popup-open {
   font-weight: 600;
   display: block;
   margin-bottom: 0.4rem;
-  font-size: 16px;             /* bigger font */
+  font-size: 16px;
   color: #333;
 }
 
 .quantity-note {
   display: block;
-  font-size: 14px;             /* bigger font */
+  font-size: 14px;
   color: #666;
   margin-top: 4px;
   font-style: italic;
@@ -94,27 +99,27 @@ body.popup-open {
 
 .prefix {
   background-color: #f4f4f4;
-  padding: 14px 16px;          /* bigger padding */
+  padding: 14px 16px;
   border: 1px solid #ccc;
   border-right: none;
   border-radius: 8px 0 0 8px;
-  font-size: 16px;             /* bigger font */
+  font-size: 16px;
   color: #555;
 }
 
 .phone-input-wrapper input {
   flex: 1;
-  padding: 14px 16px;          /* bigger padding */
+  padding: 14px 16px;
   border: 1px solid #ccc;
   border-left: none;
   border-radius: 0 8px 8px 0;
-  font-size: 16px;             /* bigger font */
+  font-size: 16px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Total Price */
 .total-price {
-  font-size: 18px;             /* bigger font */
+  font-size: 18px;
   font-weight: 600;
   color: #222;
   margin: 1.2rem 0;
@@ -122,7 +127,7 @@ body.popup-open {
 }
 
 .price-note {
-  font-size: 1rem;             /* bigger font */
+  font-size: 1rem;
   color: #555;
   margin: 3px 0;
 }
@@ -136,12 +141,12 @@ body.popup-open {
 
 .popup-buttons button {
   flex: 1;
-  padding: 1rem 1.6rem;         /* bigger padding */
+  padding: 1rem 1.6rem;
   border: none;
   background-color: #008080;
   color: white;
   border-radius: 8px;
-  font-size: 16px;              /* bigger font */
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
 }
@@ -162,9 +167,9 @@ body.popup-open {
 .free-shipping-note {
   background-color: #e6fdfd;
   color: #008080;
-  font-size: 1.1rem;            /* bigger font */
+  font-size: 1.1rem;
   font-weight: bold;
-  padding: 0.8rem 1.2rem;       /* bigger padding */
+  padding: 0.8rem 1.2rem;
   border: 2px dashed #008080;
   border-radius: 10px;
   text-align: center;
@@ -194,14 +199,15 @@ body.popup-open {
   border: 2px solid #008080;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  padding: 2rem;                /* increased padding */
-  max-width: 480px;             /* increased max-width */
+  padding: 2rem;
+  max-width: 480px;
   width: 100%;
   box-sizing: border-box;
   animation: slideUp 0.3s ease;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Success message */
 .success-message {
   background-color: #e6fdfd;
   border-radius: 16px;
@@ -212,32 +218,32 @@ body.popup-open {
   justify-content: center;
   animation: fadeInMessage 0.6s ease;
   width: 100%;  
-  min-height: 220px;            /* slightly taller */
+  min-height: 220px;
   box-sizing: border-box;
 }
 
 .success-message h3 {
-  font-size: 1.5rem;            /* bigger font */
+  font-size: 1.5rem;
   margin-bottom: 1.2rem;
   font-weight: 600;
   line-height: 1.4;
 }
 
 .success-message p {
-  font-size: 1.1rem;            /* bigger font */
+  font-size: 1.1rem;
   color: #444;
   margin: 0;
 }
 
 .success-message button {
   margin-top: 1.8rem;
-  padding: 1rem 1.6rem;          /* bigger padding */
+  padding: 1rem 1.6rem;
   border: none;
   background-color: #008080;
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1.1rem;             /* bigger font */
+  font-size: 1.1rem;
   align-self: center;
   transition: background-color 0.3s ease;
 }
@@ -248,145 +254,69 @@ body.popup-open {
 
 /* Animations */
 @keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes fadeInBackdrop {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeInMessage {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 128, 128, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(0, 128, 128, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 128, 128, 0);
-  }
+  0% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 128, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); }
 }
 
-
-@media (max-width: 480px) {
+/* Mobile styles */
+@media (max-width: 480px), (max-height: 768px) {
   .popup-backdrop {
-    align-items: center;
-    padding-top: 100px;
-    padding-bottom: 1.5rem;
+    align-items: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-y: auto;
   }
 
-  .popup-form {
+  .popup-form,
+  .popup-form1 {
     max-width: 90%;
-    padding: 1.2rem 0.9rem;
-    border-radius: 10px;
-    margin-top: auto;
-    margin-bottom: 60px; /* ✅ added for iPhones */
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 12px;
   }
 
-  .popup-form h2 {
-    font-size: 18px;
-    margin-bottom: 1rem;
-  }
-
+  .popup-form h2 { font-size: 18px; margin-bottom: 1rem; }
   .popup-form input,
-  .phone-input-wrapper input {
-    font-size: 12px;
-    padding: 8px 9px;
-  }
+  .phone-input-wrapper input { font-size: 13px; padding: 9px 10px; }
 
   .popup-buttons {
     flex-direction: column;
     gap: 0.6rem;
   }
+  .popup-buttons button { font-size: 13px; padding: 0.6rem 0.9rem; }
 
-  .popup-buttons button {
-    font-size: 13px;
-    padding: 0.6rem 0.9rem;
+  .total-price { font-size: 14px; margin: 1rem 0; }
+  .price-note { font-size: 0.85rem; }
+  .free-shipping-note { font-size: 0.85rem; padding: 0.5rem 0.8rem; }
+
+  .success-message {
+    min-height: auto;
+    padding: 1rem 0.5rem;
   }
 
-  .free-shipping-note {
-    font-size: 0.8rem;
-    padding: 0.45rem 0.7rem;
-    border-radius: 8px;
-  }
-
-  .total-price {
-    font-size: 14px;
-    margin: 1rem 0;
-  }
-
-  .price-note {
-    font-size: 0.8rem;
-  }
+  .success-message h3 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+  .success-message p { font-size: 0.95rem; }
+  .success-message button { font-size: 0.95rem; padding: 0.6rem 1.2rem; margin-top: 1rem; }
 }
 
-@media (max-height: 768px) {
-  .popup-backdrop {
-    align-items: flex-start; /* stick to top so we can scroll */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    overflow-y: auto;        /* allow scrolling */
-  }
-
-  .popup-form {
-    max-height: 90vh;        /* never exceed viewport height */
-    overflow-y: auto;        /* scroll inside popup if needed */
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .popup-buttons {
-    flex-direction: column;  /* buttons stacked vertically */
-    gap: 0.5rem;
-  }
-
-  .popup-form input,
-  .phone-input-wrapper input {
-    font-size: 13px;
-    padding: 9px 10px;
-  }
-
-  .popup-form h2 {
-    font-size: 20px;
-  }
-
-  .total-price {
-    font-size: 15px;
-  }
-
-  .price-note {
-    font-size: 0.85rem;
-  }
-
-  .free-shipping-note {
-    font-size: 0.85rem;
-    padding: 0.5rem 0.8rem;
-  }
-}
-
-
-@media (max-height: 920px) and (min-width:600px){
+/* Medium screens */
+@media (max-height: 920px) and (min-width: 600px) {
   .popup-backdrop {
     align-items: center;
     padding-top: 120px;
@@ -401,36 +331,18 @@ body.popup-open {
     margin-bottom: auto;
   }
 
-  .popup-form h2 {
-    font-size: 20px;
-  }
-
+  .popup-form h2 { font-size: 20px; }
   .popup-form input,
-  .phone-input-wrapper input {
-    font-size: 13px;
-    padding: 9px 10px;
-  }
+  .phone-input-wrapper input { font-size: 13px; padding: 9px 10px; }
 
   .popup-buttons {
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .popup-buttons button {
-    font-size: 14px;
-    padding: 0.65rem 1rem;
-  }
+  .popup-buttons button { font-size: 14px; padding: 0.65rem 1rem; }
 
-  .free-shipping-note {
-    font-size: 0.85rem;
-    padding: 0.5rem 0.8rem;
-  }
-
-  .total-price {
-    font-size: 15px;
-  }
-
-  .price-note {
-    font-size: 0.85rem;
-  }
+  .free-shipping-note { font-size: 0.85rem; padding: 0.5rem 0.8rem; }
+  .total-price { font-size: 15px; }
+  .price-note { font-size: 0.85rem; }
 }
