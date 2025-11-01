@@ -376,32 +376,6 @@ body.popup-open {
   }
 }
 
-/* keep your old @media (max-width: 480px) here */
-
-/* Add this new one at the very end */
-@supports (-webkit-touch-callout: none) and (not (translate: none)) {
-  @media (max-width: 480px) {
-    .popup-buttons {
-      flex-direction: row !important;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .popup-buttons button {
-      flex: 1;
-      font-size: 14px;
-      padding: 0.7rem 1.1rem;
-    }
-
-    .popup-buttons button:first-child {
-      order: 2; /* Dërgo on the right */
-    }
-
-    .popup-buttons button:last-child {
-      order: 1; /* Anulo on the left */
-    }
-  }
-}
 
 
 @media (max-height: 920px) and (min-width:600px){
