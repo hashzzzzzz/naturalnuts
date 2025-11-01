@@ -26,15 +26,18 @@ const Ribon = () => {
     const textWidth = textRef.current.scrollWidth;
     const containerWidth = ribbonRef.current.offsetWidth;
 
-    // Adjust speed dynamically based on container width
-    let speed = 100; // pixels per second default
-    if (containerWidth < 700) speed = 70; // slower speed on narrow screens
+    // **Set constant speed in pixels per second**
+    const PIXELS_PER_SECOND = 100; // change this to make it faster/slower
 
-    const duration = (textWidth + containerWidth) / speed;
+    // Calculate duration based on total distance
+    const distance = textWidth + containerWidth;
+    const duration = distance / PIXELS_PER_SECOND;
+
+    // Apply animation dynamically
     textRef.current.style.animation = `scrollText ${duration}s linear infinite`;
 
-    // Adjust spacing between spans dynamically
-    const spanMargin = containerWidth < 700 ? 120 : 200;
+    // Adjust spacing between spans dynamically based on container width
+    const spanMargin = Math.max(containerWidth * 0.1, 150); // 10% of screen width or minimum 150px
     Array.from(textRef.current.children).forEach(span => {
       span.style.marginRight = `${spanMargin}px`;
     });
