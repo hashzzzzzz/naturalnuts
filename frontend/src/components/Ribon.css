@@ -5,7 +5,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* start from left for scrolling */
   position: relative;
   padding-left: 10px;
   z-index: 1;
@@ -21,22 +21,22 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 0.5px;
   opacity: 0; /* hidden until visible */
-  transform: translateX(50%);
-  transition: opacity 0.5s ease-in;
 }
 
 .ribon-text.animate {
-  animation: scrollText 28s linear infinite;
   opacity: 1;
+  animation: scrollText 28s linear infinite;
 }
 
 .ribon-text span {
   margin-right: 200px;
+  display: inline-block;
 }
 
+/* updated keyframes for consistent speed */
 @keyframes scrollText {
   0% {
-    transform: translateX(50%);
+    transform: translateX(100%);
   }
   100% {
     transform: translateX(-100%);
