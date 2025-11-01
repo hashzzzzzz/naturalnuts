@@ -23,14 +23,21 @@ const Ribon = () => {
   useEffect(() => {
     if (!animate || !textRef.current || !ribbonRef.current) return;
 
-    const textWidth = textRef.current.scrollWidth; // total width of all text
+    const textWidth = textRef.current.scrollWidth;
     const containerWidth = ribbonRef.current.offsetWidth;
 
-    const speed = 100; // pixels per second, adjust to taste
-    const duration = (textWidth + containerWidth) / speed; // calculate exact duration
+    // Adjust speed dynamically based on container width
+    let speed = 100; // pixels per second default
+    if (containerWidth < 700) speed = 70; // slower speed on narrow screens
 
-    // Apply animation dynamically
+    const duration = (textWidth + containerWidth) / speed;
     textRef.current.style.animation = `scrollText ${duration}s linear infinite`;
+
+    // Adjust spacing between spans dynamically
+    const spanMargin = containerWidth < 700 ? 120 : 200;
+    Array.from(textRef.current.children).forEach(span => {
+      span.style.marginRight = `${spanMargin}px`;
+    });
   }, [animate]);
 
   return (
