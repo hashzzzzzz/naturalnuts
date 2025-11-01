@@ -72,7 +72,7 @@ const ContactUs = () => {
             value={formData.message}
             onChange={handleChange}
           />
-          <button type="submit">Send Message</button>
+          <button type="submit">Dergo Mesazh</button>
         </form>
       </div>
     </div>
