@@ -29,6 +29,11 @@ const Ribon = () => {
   return (
     <div className="ribon-banner" ref={ribbonRef}>
       <div className={`ribon-text ${animate ? 'animate' : ''}`}>
+        {/* Duplicate the content for seamless scrolling */}
+        <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*</span>
+        <span>*QMIMI I POSTËS 2€*</span>
+        <span>*PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*</span>
+
         <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*</span>
         <span>*QMIMI I POSTËS 2€*</span>
         <span>*PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*</span>
