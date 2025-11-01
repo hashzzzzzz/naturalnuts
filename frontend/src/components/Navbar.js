@@ -112,7 +112,7 @@ const Navbar = ({ onSearch }) => {
                 onChange={handleInputChange} // live search
                 ref={searchInputRef}
               />
-              <button type="submit">Submit</button>
+              <button type="submit">Kerko</button>
             </form>
           </li>
 
