@@ -193,13 +193,24 @@ body.popup-open {
 .popup-form1 {
   margin-left: auto;
   margin-right: auto;
-  max-width: 700px; /* keep form same width */
+  max-width: 700px; /* ✅ same width */
   width: 100%;
   box-sizing: border-box;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
 
+/* Success popup */
+.popup-form1 {
+  background-color: #e6fdfd;
+  border: 3px solid #008080; /* ✅ green success border */
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 2rem; /* ✅ slightly more padding */
+  margin: 2rem auto; /* ✅ some top/bottom space */
+  animation: slideUp 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .success-message {
   background-color: #e6fdfd;
