@@ -6,7 +6,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  display: block;
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
@@ -23,7 +23,7 @@ body.popup-open {
 /* Popup Container */
 .popup-form {
   max-height: 90vh;     
-  overflow-y: auto;  
+   overflow-y: auto;  
   margin-top: 100px;
   background: #fff;
   padding: 3rem;               /* increased padding */
