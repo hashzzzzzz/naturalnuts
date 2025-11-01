@@ -17,7 +17,7 @@ const ProductCard = ({ product, onOrderClick }) => {
   const extraMarginTop =
     isSmallScreen && name.length <= 8 ? 60 :
     isSmallScreen && name.length <= 14 ? 30 :
-    isSmallScreen && name.length <= 30 ? 20 : -20;
+    isSmallScreen && name.length <= 30 ? 20 : -50;
 
   return (
     <div className="product-card" data-id={_id}>
