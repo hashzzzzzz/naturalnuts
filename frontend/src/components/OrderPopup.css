@@ -1,15 +1,18 @@
+/* Backdrop */
 .popup-backdrop {
   position: fixed;
-  inset: 0; /* shorthand for top, right, bottom, left = 0 */
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  display: block; /* ✅ allows vertical stacking instead of flex centering */
-  overflow-y: auto; /* ✅ scrolls if popup taller than screen */
+  display: block;
   -webkit-overflow-scrolling: touch;
+  align-items: center;
+  justify-content: center;
   z-index: 999;
   animation: fadeInBackdrop 0.3s ease;
-  padding: 60px 0; /* ✅ adds breathing room for top/bottom */
+  overflow-y: auto;
 }
 
 /* Disable background scroll when popup is open */
