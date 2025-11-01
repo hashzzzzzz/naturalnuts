@@ -200,19 +200,6 @@ body.popup-open {
   padding-right: 1.5rem;
 }
 
-/* Success popup */
-.popup-form1 {
-  background-color: #e6fdfd;
-  border: 2px solid #008080;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  padding: 2rem;                /* increased padding */
-  width: 700px !important;         /* increased max-width */
-  width: 100%;
-  box-sizing: border-box;
-  animation: slideUp 0.3s ease;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
 
 .success-message {
   background-color: #e6fdfd;
