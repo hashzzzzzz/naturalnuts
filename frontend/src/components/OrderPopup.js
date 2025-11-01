@@ -44,10 +44,11 @@ const OrderPopup = ({ product, onClose }) => {
       setErrorMsg("Mbiemri duhet të përmbajë vetëm shkronja dhe të ketë të paktën 4 karaktere.")
       return false
     }
-   if (!/^(?=(?:.*\d){1,4})(?=[A-Za-zÇçËë\s\d]{5,})[A-Za-zÇçËë\s\d]+$/.test(street)) {
-  setErrorMsg("Rruga duhet të ketë të paktën 5 karaktere, të përmbajë të paktën 1 numër dhe maksimumi 4 numra.")
+if (!/^[A-Za-zÇçËë\s\d]{4,}$/.test(street)) {
+  setErrorMsg("Rruga duhet të ketë të paktën 4 karaktere dhe mund të përmbajë numra opsionalisht.")
   return false
 }
+
     if (isNaN(quantityNum) || quantityNum < 0.5) {
       setErrorMsg("Sasia minimale është 0.5 kg.")
       return false
@@ -169,10 +170,10 @@ const OrderPopup = ({ product, onClose }) => {
               <input name="city" placeholder="Qyteti" onChange={handleChange} required disabled={isSubmitting} />
               <input
                 name="street"
-                placeholder="Rruga(Nr)"
+                placeholder="Rruga(Nr-opsional)"
                 onChange={handleChange}
-                 pattern="^(?=(?:.*\d){1,4})(?=[A-Za-zÇçËë\s\d]{5,})[A-Za-zÇçËë\s\d]+$"
-                title="Rruga duhet të përmbajë vetëm shkronja dhe të ketë të paktën 4 karaktere."
+                pattern="[A-Za-zÇçËë\s\d]{4,}"
+                title="Rruga duhet të përmbajë shkronja opsionale(numra) dhe të ketë të paktën 4 karaktere"
                 required
                 disabled={isSubmitting}
               />
@@ -204,10 +205,9 @@ const OrderPopup = ({ product, onClose }) => {
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Email (opsionale)"
                 value={formData.email}
                 onChange={handleChange}
-                required
                 disabled={isSubmitting}
               />
 
