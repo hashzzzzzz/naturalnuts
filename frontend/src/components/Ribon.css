@@ -5,53 +5,36 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
-  padding-left: 10px;
   z-index: 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ribon-text {
-  white-space: nowrap;
   display: inline-block;
+  white-space: nowrap;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 0.5px;
   opacity: 0;
-  transform: translateX(50%);
-  transition: opacity 0.5s ease-in;
 }
 
 .ribon-text.animate {
-  animation: scrollText 28s linear infinite; /* default speed for large screens */
   opacity: 1;
 }
 
 .ribon-text span {
   margin-right: 200px;
+  display: inline-block;
 }
 
 @keyframes scrollText {
   0% {
-    transform: translateX(50%);
+    transform: translateX(100%);
   }
   100% {
     transform: translateX(-100%);
-  }
-}
-
-/* Faster scroll for screens smaller than 1090px */
-@media screen and (max-width: 1090px) {
-  .ribon-text.animate {
-    animation-duration: 18s; /* faster scroll, adjust as needed */
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .ribon-text.animate {
-    animation-duration: 12s; /* even faster for mobile */
   }
 }

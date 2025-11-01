@@ -9,9 +9,7 @@ const Ribon = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimate(true);
-        }
+        if (entry.isIntersecting) setAnimate(true);
       },
       { threshold: 0.5 }
     );
@@ -25,11 +23,13 @@ const Ribon = () => {
   useEffect(() => {
     if (!animate || !textRef.current || !ribbonRef.current) return;
 
-    const textWidth = textRef.current.scrollWidth; // total text width
+    const textWidth = textRef.current.scrollWidth; // total width of all text
     const containerWidth = ribbonRef.current.offsetWidth;
-    const speed = 100; // pixels per second (adjust for speed)
-    const duration = (textWidth + containerWidth) / speed;
 
+    const speed = 100; // pixels per second, adjust to taste
+    const duration = (textWidth + containerWidth) / speed; // calculate exact duration
+
+    // Apply animation dynamically
     textRef.current.style.animation = `scrollText ${duration}s linear infinite`;
   }, [animate]);
 
