@@ -27,7 +27,7 @@ const Ribon = () => {
     const spans = Array.from(textRef.current.children);
 
     // Speed in pixels/sec
-    let PIXELS_PER_SECOND = containerWidth < 1090 ? 180 : 120;
+    let PIXELS_PER_SECOND = containerWidth < 1090 ? 180 : 100;
 
     let totalDelay = 0;
 
@@ -51,9 +51,9 @@ const Ribon = () => {
   return (
     <div className="ribon-banner" ref={ribbonRef}>
       <div className={`ribon-text ${animate ? 'animate' : ''}`} ref={textRef}>
-        <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*</span>
-        <span>*QMIMI I POSTËS 2€*</span>
-        <span>*PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*</span>
+        <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*
+        *QMIMI I POSTËS 2€*
+        *PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*
       </div>
     </div>
   );
