@@ -211,7 +211,7 @@ body.popup-open {
   flex-direction: column;
   justify-content: center;
   animation: fadeInMessage 0.6s ease;
-  width: 100%;
+  width: 100%;  
   min-height: 220px;            /* slightly taller */
   box-sizing: border-box;
 }
@@ -376,6 +376,49 @@ body.popup-open {
   }
 }
 
+@media (max-height: 768px) {
+  .popup-backdrop {
+    align-items: flex-start; /* stick to top so we can scroll */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-y: auto;        /* allow scrolling */
+  }
+
+  .popup-form {
+    max-height: 90vh;        /* never exceed viewport height */
+    overflow-y: auto;        /* scroll inside popup if needed */
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .popup-buttons {
+    flex-direction: column;  /* buttons stacked vertically */
+    gap: 0.5rem;
+  }
+
+  .popup-form input,
+  .phone-input-wrapper input {
+    font-size: 13px;
+    padding: 9px 10px;
+  }
+
+  .popup-form h2 {
+    font-size: 20px;
+  }
+
+  .total-price {
+    font-size: 15px;
+  }
+
+  .price-note {
+    font-size: 0.85rem;
+  }
+
+  .free-shipping-note {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
 
 
 @media (max-height: 920px) and (min-width:600px){
