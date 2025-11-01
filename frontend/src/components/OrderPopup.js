@@ -251,8 +251,8 @@ if (!/^[A-Za-zÇçËë\s\d]{4,}$/.test(street)) {
             </form>
           </>
         ) : (
-         <div className="popup-overlay">
-  <div className="popup-form1">
+     
+
     <div className="success-message">
 <h3 style={{ marginBottom: 0 }}>
   Porosia juaj u dërgua me sukses! {formData.name}
@@ -279,8 +279,6 @@ if (!/^[A-Za-zÇçËë\s\d]{4,}$/.test(street)) {
       <p>Pagesa behet Cash, Faleminderit për blerjen Tuaj.</p>
       <button onClick={onClose}>Mbyll</button>
     </div>
-  </div>
-</div>
 
         )}
       </div>
