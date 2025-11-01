@@ -18,18 +18,14 @@
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 0.5px;
-  opacity: 0;
-}
-
-.ribon-text.animate {
-  opacity: 1;
+  opacity: 1; /* visible immediately */
 }
 
 .ribon-text span {
   display: inline-block;
+  padding-right: 200px; /* spacing after text */
 }
 
-/* Single span scroll, runs forwards (not infinite) */
 @keyframes scrollSingle {
   0% {
     transform: translateX(100%);

@@ -24,36 +24,24 @@ const Ribon = () => {
     if (!animate || !textRef.current || !ribbonRef.current) return;
 
     const containerWidth = ribbonRef.current.offsetWidth;
-    const spans = Array.from(textRef.current.children);
+    const textWidth = textRef.current.scrollWidth;
 
-    // Speed in pixels/sec
+    // Adjust speed: pixels per second
     let PIXELS_PER_SECOND = containerWidth < 1090 ? 180 : 100;
 
-    let totalDelay = 0;
+    // Total duration = distance / speed
+    const duration = (textWidth + containerWidth) / PIXELS_PER_SECOND;
 
-    spans.forEach((span, index) => {
-      const spanWidth = span.offsetWidth;
-      const distance = containerWidth + spanWidth;
-
-      const duration = distance / PIXELS_PER_SECOND;
-
-      // Each span starts after the previous span finishes
-      span.style.animation = `scrollSingle ${duration}s linear ${totalDelay}s forwards`;
-
-      // Update totalDelay for next span
-      totalDelay += duration;
-
-      // Optional spacing between spans visually
-      span.style.marginRight = `${containerWidth * 0.2}px`;
-    });
+    textRef.current.style.animation = `scrollSingle ${duration}s linear infinite`;
   }, [animate]);
 
   return (
     <div className="ribon-banner" ref={ribbonRef}>
       <div className={`ribon-text ${animate ? 'animate' : ''}`} ref={textRef}>
-        <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*
-        *QMIMI I POSTËS 2€*
-        *PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*
+        <span>
+          *POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE* 
+          *QMIMI I POSTËS 2€* 
+          *PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*
         </span>
       </div>
     </div>
