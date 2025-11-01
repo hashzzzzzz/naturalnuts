@@ -25,9 +25,9 @@ const Ribon = () => {
   useEffect(() => {
     if (!animate || !textRef.current || !ribbonRef.current) return;
 
-    const textWidth = textRef.current.offsetWidth;
+    const textWidth = textRef.current.scrollWidth; // total text width
     const containerWidth = ribbonRef.current.offsetWidth;
-    const speed = 100; // pixels per second
+    const speed = 100; // pixels per second (adjust for speed)
     const duration = (textWidth + containerWidth) / speed;
 
     textRef.current.style.animation = `scrollText ${duration}s linear infinite`;

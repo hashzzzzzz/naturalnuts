@@ -23,7 +23,19 @@
 
 .ribon-text.animate {
   opacity: 1;
-  animation: scrollText linear infinite;
 }
 
-/* We will dynamically set the animation duration in JS based on text width */
+/* Keyframes for text scrolling */
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ribon-text span {
+  margin-right: 200px;
+  display: inline-block;
+}
