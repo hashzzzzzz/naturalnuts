@@ -130,13 +130,12 @@ body.popup-open {
   margin: 3px 0;
 }
 
-/* ✅ Force Dergo & Anulo buttons to stay side by side on all screens */
+/* Button Group */
 .popup-buttons {
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  gap: 1rem !important;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
-
 
 .popup-buttons button {
   flex: 1;
