@@ -25,7 +25,7 @@ const ProductCard = ({ product, onOrderClick }) => {
         <div className="left-content">
           <h2 className="h22">{name}</h2>
           <p className="p22" style={{ marginTop: extraMarginTop }}>
-            1kg {price != null ? `€${price.toFixed(2)}` : 'No price yet'}
+            1kg {price != null ? ` €${price.toFixed(2)}` : 'No price yet'}
           </p>
         </div>
       </div>
