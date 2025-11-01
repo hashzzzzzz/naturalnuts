@@ -326,17 +326,16 @@ body.popup-open {
 }
 @media (max-width: 480px) {
   .popup-backdrop {
-    align-items: center;
+    align-items: flex-end; /* push popup higher on iPhones */
     padding-top: 100px;
-    padding-bottom: 1.5rem;
+    padding-bottom: 80px; /* ✅ adds visible space from bottom */
   }
 
   .popup-form {
     max-width: 90%;
     padding: 1.2rem 0.9rem;
     border-radius: 10px;
-    margin-top: auto;
-    margin-bottom: 30px; /* ✅ added for iPhones */
+    margin: 0 auto; /* keeps popup centered horizontally */
   }
 
   .popup-form h2 {
