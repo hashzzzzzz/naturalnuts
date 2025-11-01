@@ -196,7 +196,7 @@ body.popup-open {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   padding: 2rem;                /* increased padding */
-  max-width: 480px;             /* increased max-width */
+  max-width: 100vh;             /* increased max-width */
   width: 100%;
   box-sizing: border-box;
   animation: slideUp 0.3s ease;
