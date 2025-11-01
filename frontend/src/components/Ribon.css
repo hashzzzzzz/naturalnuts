@@ -5,47 +5,40 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
+  padding-left: 10px;
   z-index: 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ribon-text {
-  display: inline-block;
   white-space: nowrap;
+  display: inline-block;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #fff;
+  color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 0.5px;
-  padding-left: 100%; /* start off screen */
-  animation: scrollText 20s linear infinite; /* default speed */
+  opacity: 0; /* hidden until visible */
+  transform: translateX(50%);
+  transition: opacity 0.5s ease-in;
+}
+
+.ribon-text.animate {
+  animation: scrollText 28s linear infinite;
+  opacity: 1;
 }
 
 .ribon-text span {
-  display: inline-block;
-  margin-right: 200px; /* spacing between messages */
+  margin-right: 200px;
 }
 
-/* Scroll animation */
 @keyframes scrollText {
   0% {
-    transform: translateX(0%);
+    transform: translateX(50%);
   }
   100% {
     transform: translateX(-100%);
-  }
-}
-
-/* Faster on smaller screens */
-@media (max-width: 1090px) {
-  .ribon-text {
-    animation-duration: 12s; /* double speed */
-  }
-}
-
-@media (max-width: 700px) {
-  .ribon-text {
-    animation-duration: 8s; /* even faster on small phones */
   }
 }
