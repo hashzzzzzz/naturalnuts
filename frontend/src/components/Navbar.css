@@ -282,3 +282,9 @@ html, body {
     width: 130px;
   }
 }
+
+/* Make popup appear above navbar */
+.popup-backdrop,
+.popup-overlay {
+  z-index: 2000 !important; /* higher than navbar's 1000 */
+}
