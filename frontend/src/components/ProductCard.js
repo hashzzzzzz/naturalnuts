@@ -16,7 +16,7 @@ const ProductCard = ({ product, onOrderClick }) => {
   // Extra margin for small screens based on name length
   const extraMarginTop =
     isSmallScreen && name.length <= 8 ? 60 :
-    isSmallScreen && name.length <= 15 ? 30 :
+    isSmallScreen && name.length <= 14 ? 30 :
     isSmallScreen && name.length <= 30 ? 20 : 0;
 
   return (
