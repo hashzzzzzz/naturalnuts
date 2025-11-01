@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./OrderPopup.css"
 import emailjs from "emailjs-com"
 import {CheckMark} from 'react-checkmark';
@@ -19,6 +19,20 @@ const OrderPopup = ({ product, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [errorMsg, setErrorMsg] = useState("")
+
+  useEffect(() => {
+  const isIOSSafari =
+    /iP(ad|od|hone)/i.test(navigator.userAgent) &&
+    /Safari/i.test(navigator.userAgent) &&
+    !/CriOS/i.test(navigator.userAgent) // exclude Chrome on iOS
+
+  if (isIOSSafari) {
+    document.body.classList.add("ios-safari")
+  } else {
+    document.body.classList.remove("ios-safari")
+  }
+}, [])
+
 
   const handleChange = (e) => {
     const { name, value } = e.target
