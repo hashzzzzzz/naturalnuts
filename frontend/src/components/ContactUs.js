@@ -23,15 +23,15 @@ const ContactUs = () => {
     <div className="contact-wrapper">
       <div className="contact-box">
         <div className="contact-left">
-          <h1>Contact Natural Nuts</h1>
-          <p className="subtitle">Have questions about our products or upcoming payment options?</p>
+          <h1>Kontakto Natural Nuts</h1>
+          <p className="subtitle">Keni pyetje rreth produkteve ose mënyrave të ardhshme të pagesës?</p>
           <p className="description">
-            We’re preparing to support secure credit card and PayPal payments soon. For now, reach out with any questions!
+           Po përgatitemi për të mbështetur pagesa të sigurta me kartë krediti dhe PayPal së shpejti. Deri atëherë, na kontaktoni me çdo pyetje!
           </p>
           <div className="info-details">
-  <p><strong>Email:</strong> support@nutswe.com</p>
-  <p><strong>Phone:</strong> +383 44 123 456</p>
-  <p><strong>Location:</strong> Ferizaj, Kosovo</p>
+  <p><strong>Email:</strong> naturalnuts_ks@proton.me</p>
+
+  <p><strong>Vendndodhja:</strong> Ferizaj, Kosovë</p>
   
   {/* Embedded Google Map */}
   <div className="map-container">
@@ -52,7 +52,7 @@ const ContactUs = () => {
           <input
             type="text"
             name="name"
-            placeholder="Your Name"
+            placeholder="Emri juaj"
             required
             value={formData.name}
             onChange={handleChange}
@@ -60,14 +60,14 @@ const ContactUs = () => {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
+            placeholder="Emaili juaj"
             required
             value={formData.email}
             onChange={handleChange}
           />
           <textarea
             name="message"
-            placeholder="Your Message"
+            placeholder="Mesazhi juaj"
             required
             value={formData.message}
             onChange={handleChange}
