@@ -296,34 +296,7 @@ body.popup-open {
     padding-top: 20px;
     padding-bottom: 2rem;
   }
-  .popup-form1 {
-    padding: 1rem;
-    max-width: 100vw;
-    margin: 0 auto;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 12px;
-  }
-
-  .success-message {
-    min-height: auto;
-    padding: 1rem 0.5rem;
-  }
-
-  .success-message h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .success-message p {
-    font-size: 0.95rem;
-  }
-
-  .success-message button {
-    font-size: 0.95rem;
-    padding: 0.6rem 1.2rem;
-    margin-top: 1rem;
-  }
+ 
 }
 @media (max-width: 480px) {
   .popup-backdrop {
