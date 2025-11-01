@@ -54,6 +54,7 @@ const Ribon = () => {
         <span>*POSTA FALAS NË TË GJITHA POROSITË TUAJA NËSE KALOJNË VLERËN 29.99€ BRENDA 6 ORËVE*
         *QMIMI I POSTËS 2€*
         *PAS BLERJES, ZBRITEN -2€ NGA QMIMI TOTAL NË TË GJITHA POROSITË NËSE KALONI VLERËN 29.99€ BRENDA 6 ORËVE*
+        </span>
       </div>
     </div>
   );
