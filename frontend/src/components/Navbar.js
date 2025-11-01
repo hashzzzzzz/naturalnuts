@@ -107,7 +107,7 @@ const Navbar = ({ onSearch }) => {
             >
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Kerko produkte..."
                 value={searchInput}
                 onChange={handleInputChange} // live search
                 ref={searchInputRef}
