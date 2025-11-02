@@ -71,7 +71,7 @@ const Main = () => {
           <h1>Natural Nuts</h1>
           <p>
             Natural Nuts ofron fruta të thata natyrale me cilësi
-            të lartë. Ne importojmë produktet tona kryesisht nga SHBA, Brazil, Peru dhe i sjellim në tregun vendas
+            të lartë. Ne importojmë produktet tona kryesisht nga SHBA, Brazil, Peru, Turqi dhe i sjellim në tregun vendas
             për konsum të shëndetshëm.
           </p>
           <ul>
