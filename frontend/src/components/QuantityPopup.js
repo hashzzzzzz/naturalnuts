@@ -20,6 +20,11 @@ const QuantityPopup = ({ product, onSave, onClose }) => {
   return (
     <div className="quantity-backdrop">
       <form className="quantity-dialog" onSubmit={handleSubmit}>
+        {product.imageUrl && (
+          <div className="quantity-product-image">
+            <img src={product.imageUrl} alt={product.name} />
+          </div>
+        )}
         <h2>{product.name}</h2>
         <label htmlFor="quantity">Sa kg doni?</label>
         <input

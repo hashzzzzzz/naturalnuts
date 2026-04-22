@@ -6,17 +6,35 @@ import logo from '../assets/123.png';
 import './Navbar.css';
 
 const Navbar = ({ onSearch }) => {
-  const { state } = useCart();
+  const { state, removeFromCart, clearCart } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth > 1090);
   const searchInputRef = useRef(null);
+  const cartRef = useRef(null);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleSearch = () => setSearchVisible((prev) => !prev);
+
+  const handleCheckoutClick = () => {
+    setCartOpen(false);
+    setMenuOpen(false);
+    navigate('/checkout');
+  };
+
+  const handleCartClick = () => {
+    if (isDesktop) {
+      setCartOpen((prev) => !prev);
+      return;
+    }
+
+    handleCheckoutClick();
+  };
 
   const handleLinkClick = (id, e) => {
     if (e) e.currentTarget.blur(); // remove focus to hide cursor
@@ -39,6 +57,7 @@ const Navbar = ({ onSearch }) => {
     }
 
     setMenuOpen(false);
+    setCartOpen(false);
   };
 
   const handleLogoClick = (e) => {
@@ -49,6 +68,7 @@ const Navbar = ({ onSearch }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setMenuOpen(false);
+    setCartOpen(false);
   };
 
   // Live search on every key press
@@ -77,10 +97,114 @@ const Navbar = ({ onSearch }) => {
   }, []);
 
   useEffect(() => {
+    const handleResize = () => {
+      const desktop = window.innerWidth > 1090;
+      setIsDesktop(desktop);
+      if (!desktop) setCartOpen(false);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      if (cartRef.current && !cartRef.current.contains(e.target)) {
+        setCartOpen(false);
+      }
+    };
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setCartOpen(false);
+    };
+
+    document.addEventListener('mousedown', handleDocumentClick);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, []);
+
+  useEffect(() => {
     if (searchVisible && searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, [searchVisible]);
+
+  const mobileCartButton = (
+    <button
+      type="button"
+      className="cart-button mobile-cart-button"
+      onClick={handleCheckoutClick}
+      aria-label="Hap shportën"
+    >
+      <FaShoppingCart />
+      {state.itemCount > 0 && <span className="cart-count">{state.itemCount}</span>}
+    </button>
+  );
+
+  const desktopCartControl = (
+    <div className="cart-wrapper" ref={cartRef}>
+      <button
+        type="button"
+        className="cart-button"
+        onClick={handleCartClick}
+        aria-label="Hap shportën"
+        aria-expanded={cartOpen}
+      >
+        <FaShoppingCart />
+        {state.itemCount > 0 && <span className="cart-count">{state.itemCount}</span>}
+      </button>
+
+      {cartOpen && (
+        <div className="cart-dropdown">
+          <div className="cart-dropdown-header">
+            <h3>Shporta</h3>
+            {state.itemCount > 0 && (
+              <button type="button" onClick={clearCart}>
+                Pastro shportën
+              </button>
+            )}
+          </div>
+
+          {state.items.length === 0 ? (
+            <p className="cart-empty">Shporta është bosh</p>
+          ) : (
+            <>
+              <div className="cart-dropdown-items">
+                {state.items.map((item) => (
+                  <div className="cart-dropdown-item" key={item.id}>
+                    <div className="cart-dropdown-image">
+                      {item.imageUrl ? (
+                        <img src={item.imageUrl} alt={item.name} />
+                      ) : (
+                        <span>{item.name?.charAt(0)}</span>
+                      )}
+                    </div>
+                    <div className="cart-dropdown-info">
+                      <strong>{item.name}</strong>
+                      <span>{item.quantity} kg</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="cart-remove"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      Fshij
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button type="button" className="cart-checkout" onClick={handleCheckoutClick}>
+                Vazhdo te pagesa
+              </button>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <nav className="navbar">
@@ -90,11 +214,14 @@ const Navbar = ({ onSearch }) => {
           <img src={logo} alt="Logo" />
         </div>
 
-        {/* HAMBURGER */}
-        <div className="hamburger" onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+        <div className="mobile-nav-actions">
+          {mobileCartButton}
+          {/* HAMBURGER */}
+          <div className="hamburger" onClick={toggleMenu}>
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </div>
         </div>
 
         {/* NAV LINKS */}
@@ -129,18 +256,7 @@ const Navbar = ({ onSearch }) => {
             </button>
           </li>
           <li>
-            <button
-              type="button"
-              className="cart-button"
-              onClick={() => {
-                navigate('/checkout');
-                setMenuOpen(false);
-              }}
-              aria-label="Hap karten"
-            >
-              <FaShoppingCart />
-              {state.itemCount > 0 && <span className="cart-count">{state.itemCount}</span>}
-            </button>
+            {desktopCartControl}
           </li>
 
           {menuOpen && <li className="mobile-search"></li>}
