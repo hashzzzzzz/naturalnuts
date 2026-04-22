@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import { useCart } from '../contexts/CartContext';
@@ -22,6 +22,10 @@ const PagesaPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,73 +137,75 @@ const PagesaPage = () => {
           </section>
         ) : (
           <section className="pagesa-layout">
-            <form className="pagesa-form" onSubmit={handleSubmit}>
-              <h2>Te dhenat tuaja</h2>
+            <div className="pagesa-card">
+              <form className="pagesa-form" onSubmit={handleSubmit}>
+                <h2>Te dhenat tuaja</h2>
 
-              {errorMsg && <p className="pagesa-error">{errorMsg}</p>}
+                {errorMsg && <p className="pagesa-error">{errorMsg}</p>}
 
-              <input name="name" placeholder="Emri" onChange={handleChange} required disabled={isSubmitting} />
-              <input name="surname" placeholder="Mbiemri" onChange={handleChange} required disabled={isSubmitting} />
-              <input name="city" placeholder="Qyteti" onChange={handleChange} required disabled={isSubmitting} />
-              <input name="street" placeholder="Rruga(Nr-opsional)" onChange={handleChange} required disabled={isSubmitting} />
-              <input
-                type="text"
-                name="phone"
-                value={formData.phone ? `+383 ${formData.phone}` : ''}
-                placeholder="Numri i telefonit"
-                onChange={handleChange}
-                required
-                disabled={isSubmitting}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email (opsionale)"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isSubmitting}
-              />
+                <input name="name" placeholder="Emri" onChange={handleChange} required disabled={isSubmitting} />
+                <input name="surname" placeholder="Mbiemri" onChange={handleChange} required disabled={isSubmitting} />
+                <input name="city" placeholder="Qyteti" onChange={handleChange} required disabled={isSubmitting} />
+                <input name="street" placeholder="Rruga(Nr-opsional)" onChange={handleChange} required disabled={isSubmitting} />
+                <input
+                  type="text"
+                  name="phone"
+                  value={formData.phone ? `+383 ${formData.phone}` : ''}
+                  placeholder="Numri i telefonit"
+                  onChange={handleChange}
+                  required
+                  disabled={isSubmitting}
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email (opsionale)"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                />
 
-              <button type="submit" disabled={isSubmitting || state.items.length === 0}>
-                {isSubmitting ? 'Dergim...' : 'Dergo porosine'}
-              </button>
-            </form>
+                <button type="submit" disabled={isSubmitting || state.items.length === 0}>
+                  {isSubmitting ? 'Dergim...' : 'Dergo porosine'}
+                </button>
+              </form>
 
-            <aside className="pagesa-summary">
-              <h2>Porosia</h2>
-              {state.items.length === 0 ? (
-                <p>Shporta eshte bosh.</p>
-              ) : (
-                <>
-                  <div className="pagesa-items">
-                    {state.items.map((item) => (
-                      <div className="pagesa-item" key={item.id}>
-                        <span>{item.name}</span>
-                        <strong>{item.quantity} kg</strong>
-                        <strong>{formatPrice(calculateItemBasePrice(item))}</strong>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="pagesa-total-row">
-                    <span>Produkte</span>
-                    <strong>{formatPrice(pricing.subtotal)}</strong>
-                  </div>
-                  <div className="pagesa-total-row">
-                    <span>Posta</span>
-                    <strong>{pricing.shipping === 0 ? 'Falas' : formatPrice(pricing.shipping)}</strong>
-                  </div>
-                  <p className="pagesa-shipping-note">
-                    {pricing.shipping === 0
-                      ? 'Posta eshte falas per porosite mbi 30 EUR.'
-                      : 'Posta kushton 2 EUR per porosite nen 30 EUR.'}
-                  </p>
-                  <div className="pagesa-total-row pagesa-grand-total">
-                    <span>Totali</span>
-                    <strong>{formatPrice(pricing.total)}</strong>
-                  </div>
-                </>
-              )}
-            </aside>
+              <aside className="pagesa-summary">
+                <h2>Porosia</h2>
+                {state.items.length === 0 ? (
+                  <p>Shporta eshte bosh.</p>
+                ) : (
+                  <>
+                    <div className="pagesa-items">
+                      {state.items.map((item) => (
+                        <div className="pagesa-item" key={item.id}>
+                          <span>{item.name}</span>
+                          <strong>{item.quantity} kg</strong>
+                          <strong>{formatPrice(calculateItemBasePrice(item))}</strong>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="pagesa-total-row">
+                      <span>Produkte</span>
+                      <strong>{formatPrice(pricing.subtotal)}</strong>
+                    </div>
+                    <div className="pagesa-total-row">
+                      <span>Posta</span>
+                      <strong>{pricing.shipping === 0 ? 'Falas' : formatPrice(pricing.shipping)}</strong>
+                    </div>
+                    <p className="pagesa-shipping-note">
+                      {pricing.shipping === 0
+                        ? 'Posta eshte falas per porosite mbi 30 EUR.'
+                        : 'Posta kushton 2 EUR per porosite nen 30 EUR.'}
+                    </p>
+                    <div className="pagesa-total-row pagesa-grand-total">
+                      <span>Totali</span>
+                      <strong>{formatPrice(pricing.total)}</strong>
+                    </div>
+                  </>
+                )}
+              </aside>
+            </div>
           </section>
         )}
       </main>

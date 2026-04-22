@@ -23,19 +23,20 @@
 .pagesa-layout {
   max-width: 1100px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 24px;
-  align-items: start;
 }
 
-.pagesa-form,
-.pagesa-summary,
+.pagesa-card,
 .pagesa-success {
   border: 1px solid #d6e2da;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 8px 22px rgba(27, 67, 50, 0.08);
+}
+
+.pagesa-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  overflow: hidden;
 }
 
 .pagesa-form {
@@ -89,9 +90,9 @@
 }
 
 .pagesa-summary {
-  position: sticky;
-  top: 140px;
   padding: 20px;
+  background: #f7fbf8;
+  border-left: 1px solid #d6e2da;
 }
 
 .pagesa-items {
@@ -155,7 +156,12 @@
     grid-template-columns: 1fr;
   }
 
+  .pagesa-card {
+    grid-template-columns: 1fr;
+  }
+
   .pagesa-summary {
-    position: static;
+    border-left: 0;
+    border-top: 1px solid #d6e2da;
   }
 }
