@@ -11,6 +11,7 @@ export default function EditProduct() {
   const [imageUrl, setImageUrl] = useState('');
   const [dragOver, setDragOver] = useState(false);
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fileInputRef = useRef(null);
@@ -18,14 +19,17 @@ export default function EditProduct() {
   // Fetch existing product data on mount
   useEffect(() => {
     const fetchProduct = async () => {
+      setIsLoading(true);
       try {
         const res = await axios.get(apiUrl(`/api/products/${productId}`));
         const product = res.data;
-        setForm({ name: product.name, price: product.price, image: null });
+        setForm({ name: product.name || '', price: product.price ?? '', image: null });
         setImageUrl(product.imageUrl || '');
         setMessage('');
-      } catch {
-        // Silent fail on fetch error
+      } catch (error) {
+        setMessage('Failed to load product details.');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchProduct();
@@ -47,22 +51,22 @@ export default function EditProduct() {
     setDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      setForm({ ...form, image: file });
+      setForm((prev) => ({ ...prev, image: file }));
       setImageUrl(URL.createObjectURL(file));
       if (fileInputRef.current) fileInputRef.current.value = null;
     } else {
       alert('Please drop a valid image file');
     }
-  }, [form]);
+  }, []);
 
   // File input change
   const handleFileChange = useCallback((e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
-      setForm({ ...form, image: file });
+      setForm((prev) => ({ ...prev, image: file }));
       setImageUrl(URL.createObjectURL(file));
     }
-  }, [form]);
+  }, []);
 
   // Handle form update submit
   const handleUpdate = async (e) => {
@@ -91,6 +95,15 @@ export default function EditProduct() {
     ? 'message message-success'
     : 'message message-error';
 
+  if (isLoading) {
+    return (
+      <div className="add-product-form product-form">
+        <h2>Edit Product</h2>
+        <p>Loading product details...</p>
+      </div>
+    );
+  }
+
   return (
     <form className="add-product-form product-form" onSubmit={handleUpdate}>
       <h2>Edit Product</h2>
@@ -99,7 +112,7 @@ export default function EditProduct() {
         type="text"
         placeholder="Product name"
         value={form.name}
-        onChange={(e) => setForm({ ...form, name: e.target.value })}
+        onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
         className="input-field"
         required
       />
@@ -134,7 +147,7 @@ export default function EditProduct() {
         type="number"
         placeholder="Price"
         value={form.price}
-        onChange={(e) => setForm({ ...form, price: e.target.value })}
+        onChange={(e) => setForm((prev) => ({ ...prev, price: e.target.value }))}
         className="input-field"
         required
         min="0"

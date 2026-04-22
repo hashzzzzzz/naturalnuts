@@ -45,6 +45,25 @@ router.get('/', async (req, res) => {
 });
 
 // POST create product → upload to Cloudinary
+router.get('/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+    let cleanUrl = product.imageUrl || '';
+    cleanUrl = cleanUrl.replace(/^https?:\/\/localhost:\d+/i, '')
+                       .replace(BASE_URL, '')
+                       .replace(/^\/+/, '');
+
+    res.json({
+      ...product.toObject(),
+      imageUrl: product.imageUrl.startsWith('http') ? product.imageUrl : `${BASE_URL}/${cleanUrl}`,
+    });
+  } catch (error) {
+    res.status(400).json({ message: 'Failed to fetch product', error });
+  }
+});
+
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { name, price } = req.body;
