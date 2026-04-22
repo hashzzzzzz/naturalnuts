@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { apiUrl } from './api';
 
 import Navbar from './components/Navbar';
 import Main from './components/Main';
@@ -20,10 +21,6 @@ import EditProductIDInput from './components/EditProductId';
 import CheckoutPage from './components/CheckoutPage';
 import { CartProvider } from './contexts/CartContext';
 
-// Add this to make the backend URL dynamic
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
-
-
 function ProtectedRoute({ loggedIn, children }) {
   if (!loggedIn) {
     return <Navigate to="/adminlogin" replace />;
@@ -38,7 +35,7 @@ function HomePage({ searchQuery }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/api/products`)
+    axios.get(apiUrl('/api/products'))
       .then((res) => {
         setProducts(res.data);
         setLoading(false);

@@ -1,8 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import axios from 'axios';
+import { apiUrl } from '../api';
 import './AddProductForm.css';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com/'; // ensure trailing slash
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
@@ -53,7 +52,7 @@ const AddProductForm = () => {
       formData.append('price', parseFloat(price));
       formData.append('image', imageFile);
 
-      const response = await axios.post(`${API_BASE_URL}api/products`, formData, {
+      const response = await axios.post(apiUrl('/api/products'), formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

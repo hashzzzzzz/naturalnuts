@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-// ✅ Dynamic backend URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
+import { apiUrl } from '../api';
 
 
 export default function DeleteProduct() {
@@ -17,7 +15,7 @@ export default function DeleteProduct() {
 
     try {
       // ✅ Use dynamic backend URL
-      await axios.delete(`${API_BASE_URL}/api/products/${productId}`);
+      await axios.delete(apiUrl(`/api/products/${productId}`));
       setMessage('Product deleted successfully.');
       setProductId('');
     } catch (error) {

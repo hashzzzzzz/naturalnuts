@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { apiUrl } from '../api';
 import './AddProductForm.css'; // reuse the same CSS (or your shared CSS file)
-
-// ✅ Dynamic API URL — matches AddProductForm style with trailing slash
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com/';
 
 export default function EditProduct() {
   const { id: productId } = useParams();
@@ -21,7 +19,7 @@ export default function EditProduct() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}api/products/${productId}`);
+        const res = await axios.get(apiUrl(`/api/products/${productId}`));
         const product = res.data;
         setForm({ name: product.name, price: product.price, image: null });
         setImageUrl(product.imageUrl || '');
@@ -77,7 +75,7 @@ export default function EditProduct() {
       formData.append('price', form.price);
       if (form.image) formData.append('image', form.image);
 
-      await axios.put(`${API_BASE_URL}api/products/${productId}`, formData, {
+      await axios.put(apiUrl(`/api/products/${productId}`), formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
