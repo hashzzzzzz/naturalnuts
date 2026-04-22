@@ -1,81 +1,132 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { FaPen, FaPlus, FaTrash } from 'react-icons/fa';
+import { apiUrl } from '../api';
+import './AdminPanel.css';
 
 export default function AdminPanel() {
   const navigate = useNavigate();
-  const [isMobile, setIsMobile] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [deletingId, setDeletingId] = useState('');
+
+  const sortedProducts = useMemo(() => {
+    return [...products].sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+  }, [products]);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 600);  // 600px breakpoint for mobile
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(apiUrl('/api/products'));
+        setProducts(res.data);
+        setError('');
+      } catch {
+        setError('Nuk mund te ngarkohen produktet.');
+      } finally {
+        setLoading(false);
+      }
     };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    fetchProducts();
   }, []);
 
-  const desktopGridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '20px',
-    maxWidth: '600px',
-    margin: 'auto',
-    marginTop: '50px',
-  };
+  const handleDelete = async (product) => {
+    const confirmed = window.confirm(`A je i sigurt qe don me fshi "${product.name}"?`);
+    if (!confirmed) return;
 
-  const mobileGridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '20px',
-    maxWidth: '700px',
-    margin: 'auto',
-    marginTop: '50px',
-    padding: '20px',
+    setDeletingId(product._id);
+    try {
+      await axios.delete(apiUrl(`/api/products/${product._id}`));
+      setProducts((prev) => prev.filter((item) => item._id !== product._id));
+    } catch {
+      alert('Produkti nuk u fshi. Provo perseri.');
+    } finally {
+      setDeletingId('');
+    }
   };
-
-  const mobileCardStyle = {
-    border: '1px solid #ccc',
-    padding: '20px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f9f9f9',
-    transition: 'transform 0.2s ease',
-  };
-
-  const desktopCardStyle = {
-    border: '1px solid #ccc',
-    padding: '20px',
-    cursor: 'pointer',
-    textAlign: 'center',
-  };
-
-  const handleHover = (e, scale) => {
-    e.currentTarget.style.transform = `scale(${scale})`;
-  };
-
-  const menuItems = [
-    { label: 'Add Product', route: '/admin/add-product' },
-    { label: 'Edit Product', route: '/admin/edit-product' },
-    { label: 'Delete Product', route: '/admin/delete-product' },
-    { label: 'Home', route: '/' },
-  ];
 
   return (
-    <div style={isMobile ? mobileGridStyle : desktopGridStyle}>
-      {menuItems.map(item => (
-        <div
-          key={item.label}
-          onClick={() => navigate(item.route)}
-          onMouseEnter={isMobile ? (e) => handleHover(e, 1.03) : undefined}
-          onMouseLeave={isMobile ? (e) => handleHover(e, 1) : undefined}
-          style={isMobile ? mobileCardStyle : desktopCardStyle}
-        >
-          <h2 style={{ margin: 0 }}>{item.label}</h2>
+    <main className="admin-panel-page">
+      <section className="admin-panel-header">
+        <div>
+          <h1>Produktet</h1>
+          <p>Menaxho produktet sipas emrit, fotos dhe cmimit.</p>
         </div>
-      ))}
-    </div>
+        <button
+          type="button"
+          className="admin-add-button"
+          onClick={() => navigate('/admin/add-product')}
+        >
+          <FaPlus />
+          Add New Product
+        </button>
+      </section>
+
+      <section className="admin-products-panel">
+        {loading ? (
+          <p className="admin-state-message">Duke u ngarkuar...</p>
+        ) : error ? (
+          <p className="admin-state-message admin-error-message">{error}</p>
+        ) : sortedProducts.length === 0 ? (
+          <p className="admin-state-message">Nuk ka produkte ende.</p>
+        ) : (
+          <div className="admin-products-table">
+            <div className="admin-table-head">
+              <span>Foto</span>
+              <span>Emri</span>
+              <span>Cmimi</span>
+              <span>Veprime</span>
+            </div>
+
+            {sortedProducts.map((product) => (
+              <article className="admin-product-row" key={product._id}>
+                <div className="admin-product-image">
+                  {product.imageUrl ? (
+                    <img src={product.imageUrl} alt={product.name} />
+                  ) : (
+                    <span>No Image</span>
+                  )}
+                </div>
+
+                <div className="admin-product-name">
+                  <strong>{product.name}</strong>
+                  <small>ID: {product._id}</small>
+                </div>
+
+                <div className="admin-product-price">
+                  EUR {Number(product.price || 0).toFixed(2)}
+                </div>
+
+                <div className="admin-product-actions">
+                  <button
+                    type="button"
+                    className="admin-icon-button admin-edit-button"
+                    onClick={() => navigate(`/admin/edit-product/${product._id}`)}
+                    aria-label={`Update ${product.name}`}
+                    title="Update"
+                  >
+                    <FaPen />
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-icon-button admin-delete-button"
+                    onClick={() => handleDelete(product)}
+                    disabled={deletingId === product._id}
+                    aria-label={`Delete ${product.name}`}
+                    title="Delete"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+    </main>
   );
 }
