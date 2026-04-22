@@ -59,6 +59,39 @@
   font-weight: 700;
 }
 
+.quantity-price-box {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid #d7e2dc;
+  border-radius: 8px;
+  background: #f7fbf8;
+}
+
+.quantity-price-box div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #1b4332;
+  font-weight: 700;
+}
+
+.quantity-price-box .quantity-total-row {
+  padding-top: 8px;
+  border-top: 1px solid #d7e2dc;
+  font-size: 1.05rem;
+}
+
+.quantity-price-box p {
+  margin: 0;
+  color: #456456;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+}
+
 .quantity-actions {
   display: flex;
   gap: 10px;

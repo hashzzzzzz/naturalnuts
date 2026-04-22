@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../contexts/CartContext';
+import { calculateCartPricing, calculateItemBasePrice, formatPrice } from '../cartPricing';
 import logo from '../assets/123.png';
 import './Navbar.css';
 
@@ -11,12 +12,11 @@ const Navbar = ({ onSearch }) => {
   const [searchInput, setSearchInput] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth > 1090);
   const searchInputRef = useRef(null);
-  const cartRef = useRef(null);
 
   const navigate = useNavigate();
   const location = useLocation();
+  const pricing = calculateCartPricing(state.items);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleSearch = () => setSearchVisible((prev) => !prev);
@@ -24,24 +24,20 @@ const Navbar = ({ onSearch }) => {
   const handleCheckoutClick = () => {
     setCartOpen(false);
     setMenuOpen(false);
-    navigate('/checkout');
+    navigate('/pagesa');
   };
 
   const handleCartClick = () => {
-    if (isDesktop) {
-      setCartOpen((prev) => !prev);
-      return;
-    }
-
-    handleCheckoutClick();
+    setCartOpen((prev) => !prev);
   };
 
   const handleLinkClick = (id, e) => {
-    if (e) e.currentTarget.blur(); // remove focus to hide cursor
+    if (e) e.currentTarget.blur();
 
     if (id === 'contact') {
       navigate('/contactus');
       setMenuOpen(false);
+      setCartOpen(false);
       return;
     }
 
@@ -61,7 +57,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   const handleLogoClick = (e) => {
-    if (e) e.currentTarget.blur(); // remove focus
+    if (e) e.currentTarget.blur();
     if (location.pathname !== '/') {
       navigate('/');
     } else {
@@ -71,18 +67,15 @@ const Navbar = ({ onSearch }) => {
     setCartOpen(false);
   };
 
-  // Live search on every key press
   const handleInputChange = (e) => {
     const value = e.target.value;
     setSearchInput(value);
 
     if (onSearch) onSearch(value);
 
-    // automatically go to Products section on keyup
     handleLinkClick('product-list');
   };
 
-  // Optional submit button (for aesthetics)
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (onSearch) onSearch(searchInput);
@@ -97,19 +90,8 @@ const Navbar = ({ onSearch }) => {
   }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      const desktop = window.innerWidth > 1090;
-      setIsDesktop(desktop);
-      if (!desktop) setCartOpen(false);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
     const handleDocumentClick = (e) => {
-      if (cartRef.current && !cartRef.current.contains(e.target)) {
+      if (!e.target.closest('.cart-wrapper')) {
         setCartOpen(false);
       }
     };
@@ -132,25 +114,13 @@ const Navbar = ({ onSearch }) => {
     }
   }, [searchVisible]);
 
-  const mobileCartButton = (
-    <button
-      type="button"
-      className="cart-button mobile-cart-button"
-      onClick={handleCheckoutClick}
-      aria-label="Hap shportën"
-    >
-      <FaShoppingCart />
-      {state.itemCount > 0 && <span className="cart-count">{state.itemCount}</span>}
-    </button>
-  );
-
-  const desktopCartControl = (
-    <div className="cart-wrapper" ref={cartRef}>
+  const renderCartControl = (className = '') => (
+    <div className={`cart-wrapper ${className}`}>
       <button
         type="button"
         className="cart-button"
         onClick={handleCartClick}
-        aria-label="Hap shportën"
+        aria-label="Hap shporten"
         aria-expanded={cartOpen}
       >
         <FaShoppingCart />
@@ -163,13 +133,13 @@ const Navbar = ({ onSearch }) => {
             <h3>Shporta</h3>
             {state.itemCount > 0 && (
               <button type="button" onClick={clearCart}>
-                Pastro shportën
+                Pastro shporten
               </button>
             )}
           </div>
 
           {state.items.length === 0 ? (
-            <p className="cart-empty">Shporta është bosh</p>
+            <p className="cart-empty">Shporta eshte bosh</p>
           ) : (
             <>
               <div className="cart-dropdown-items">
@@ -185,6 +155,7 @@ const Navbar = ({ onSearch }) => {
                     <div className="cart-dropdown-info">
                       <strong>{item.name}</strong>
                       <span>{item.quantity} kg</span>
+                      <span>{formatPrice(calculateItemBasePrice(item))}</span>
                     </div>
                     <button
                       type="button"
@@ -196,8 +167,24 @@ const Navbar = ({ onSearch }) => {
                   </div>
                 ))}
               </div>
+
+              <div className="cart-dropdown-totals">
+                <div>
+                  <span>Produkte</span>
+                  <strong>{formatPrice(pricing.subtotal)}</strong>
+                </div>
+                <div>
+                  <span>Posta</span>
+                  <strong>{pricing.shipping === 0 ? 'Falas' : formatPrice(pricing.shipping)}</strong>
+                </div>
+                <div>
+                  <span>Totali</span>
+                  <strong>{formatPrice(pricing.total)}</strong>
+                </div>
+              </div>
+
               <button type="button" className="cart-checkout" onClick={handleCheckoutClick}>
-                Vazhdo te pagesa
+                Vazhdo porosine
               </button>
             </>
           )}
@@ -209,14 +196,12 @@ const Navbar = ({ onSearch }) => {
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        {/* LOGO */}
         <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="Logo" />
         </div>
 
         <div className="mobile-nav-actions">
-          {mobileCartButton}
-          {/* HAMBURGER */}
+          {renderCartControl('mobile-cart-wrapper')}
           <div className="hamburger" onClick={toggleMenu}>
             <span className="bar"></span>
             <span className="bar"></span>
@@ -224,9 +209,7 @@ const Navbar = ({ onSearch }) => {
           </div>
         </div>
 
-        {/* NAV LINKS */}
         <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          {/* SEARCH */}
           <li className="search-container">
             <button id="init-button" onClick={toggleSearch} className="search-icon">
               <i className="fas fa-magnifying-glass"></i>
@@ -239,14 +222,13 @@ const Navbar = ({ onSearch }) => {
                 type="text"
                 placeholder="Kerko produkte..."
                 value={searchInput}
-                onChange={handleInputChange} // live search
+                onChange={handleInputChange}
                 ref={searchInputRef}
               />
               <button type="submit">Kerko</button>
             </form>
           </li>
 
-          {/* MAIN LINKS */}
           <li tabIndex={-1} onClick={handleLogoClick}>Ballina</li>
           <li tabIndex={-1} onClick={(e) => handleLinkClick('product-list', e)}>Produktet</li>
           <li tabIndex={-1} onClick={(e) => handleLinkClick('contact', e)}>Kontakti</li>
@@ -256,7 +238,7 @@ const Navbar = ({ onSearch }) => {
             </button>
           </li>
           <li>
-            {desktopCartControl}
+            {renderCartControl('desktop-cart-wrapper')}
           </li>
 
           {menuOpen && <li className="mobile-search"></li>}

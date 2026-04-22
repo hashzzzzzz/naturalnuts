@@ -134,6 +134,11 @@
   border-bottom: 1px solid #e3eee7;
 }
 
+.checkout-summary-total {
+  font-size: 1.1rem;
+  color: #123326;
+}
+
 .checkout-summary button,
 .checkout-empty button {
   width: 100%;

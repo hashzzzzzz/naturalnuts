@@ -19,6 +19,7 @@ import DeleteProduct from './components/DeleteProduct';
 import Login from './components/Login';  // <-- New Login component (create it)
 import EditProductIDInput from './components/EditProductId';
 import CheckoutPage from './components/CheckoutPage';
+import PagesaPage from './components/PagesaPage';
 import { CartProvider } from './contexts/CartContext';
 
 function ProtectedRoute({ loggedIn, children }) {
@@ -108,6 +109,7 @@ function AppContent() {
           {/* Public Routes */}
           <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/pagesa" element={<PagesaPage />} />
           <Route path="/contactus" element={<ContactPage />} />
           <Route path="/adminlogin" element={<Login setLoggedIn={setLoggedIn} />} />
 

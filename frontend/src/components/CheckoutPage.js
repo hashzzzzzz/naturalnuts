@@ -1,17 +1,14 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { useCart } from '../contexts/CartContext';
-import OrderPopup from './OrderPopup';
+import { calculateCartPricing, calculateItemBasePrice, formatPrice } from '../cartPricing';
 import Footer from './Footer';
 import './CheckoutPage.css';
-
-const formatPrice = (value) => `EUR ${Number(value || 0).toFixed(2)}`;
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const { state, removeFromCart, updateCartQuantity } = useCart();
-  const [orderOpen, setOrderOpen] = useState(false);
+  const pricing = calculateCartPricing(state.items);
 
   const handleQuantityChange = (productId, value) => {
     const quantity = Number.parseFloat(value);
@@ -39,7 +36,7 @@ const CheckoutPage = () => {
           <section className="checkout-layout">
             <div className="checkout-items">
               {state.items.map((item) => {
-                const subtotal = item.price * Number(item.quantity);
+                const subtotal = calculateItemBasePrice(item);
 
                 return (
                   <article className="checkout-item" key={item.id}>
@@ -87,9 +84,17 @@ const CheckoutPage = () => {
               </div>
               <div className="checkout-summary-row">
                 <span>Shuma</span>
-                <strong>{formatPrice(state.total)}</strong>
+                <strong>{formatPrice(pricing.subtotal)}</strong>
               </div>
-              <button type="button" onClick={() => setOrderOpen(true)}>
+              <div className="checkout-summary-row">
+                <span>Posta</span>
+                <strong>{pricing.shipping === 0 ? 'Falas' : formatPrice(pricing.shipping)}</strong>
+              </div>
+              <div className="checkout-summary-row checkout-summary-total">
+                <span>Totali</span>
+                <strong>{formatPrice(pricing.total)}</strong>
+              </div>
+              <button type="button" onClick={() => navigate('/pagesa')}>
                 Vazhdo Porosine
               </button>
             </aside>
@@ -98,13 +103,6 @@ const CheckoutPage = () => {
       </main>
 
       <Footer />
-
-      {orderOpen && (
-        <OrderPopup
-          cartItems={state.items}
-          onClose={() => setOrderOpen(false)}
-        />
-      )}
     </>
   );
 };

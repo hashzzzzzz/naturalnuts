@@ -374,6 +374,25 @@ html, body {
   font-size: 0.9rem;
 }
 
+.cart-dropdown-totals {
+  display: grid;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid #e2ece6;
+}
+
+.cart-dropdown-totals div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #1b4332;
+}
+
+.cart-dropdown-totals div:last-child {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
 .cart-remove {
   background: #f3e7e7;
   color: #a51d2d;
@@ -417,6 +436,19 @@ html, body {
   .mobile-cart-button {
     width: 42px;
     height: 42px;
+  }
+
+  .mobile-cart-wrapper .cart-dropdown {
+    position: fixed;
+    top: 92px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: min(70vh, 520px);
+  }
+
+  .desktop-cart-wrapper {
+    display: none;
   }
 
   .search-form {margin-top: 0;}

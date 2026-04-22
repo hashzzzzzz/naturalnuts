@@ -1,0 +1,153 @@
+.pagesa-page {
+  min-height: 70vh;
+  padding: 70px 5vw 40px;
+  background: #f8fbf7;
+  color: #1b4332;
+}
+
+.pagesa-header {
+  max-width: 1100px;
+  margin: 0 auto 28px;
+}
+
+.pagesa-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.pagesa-header p {
+  color: #456456;
+  font-weight: 700;
+}
+
+.pagesa-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.pagesa-form,
+.pagesa-summary,
+.pagesa-success {
+  border: 1px solid #d6e2da;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(27, 67, 50, 0.08);
+}
+
+.pagesa-form {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.pagesa-form h2,
+.pagesa-summary h2 {
+  margin-bottom: 4px;
+}
+
+.pagesa-form input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #b8c9bf;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+}
+
+.pagesa-form input:focus {
+  border-color: #1b4332;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.12);
+}
+
+.pagesa-form button,
+.pagesa-success button {
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 18px;
+  background: #1b4332;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.pagesa-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.pagesa-error {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8e7e7;
+  color: #a51d2d;
+  font-weight: 800;
+}
+
+.pagesa-summary {
+  position: sticky;
+  top: 140px;
+  padding: 20px;
+}
+
+.pagesa-items {
+  display: grid;
+  gap: 10px;
+  padding: 12px 0;
+}
+
+.pagesa-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.pagesa-item span {
+  overflow-wrap: anywhere;
+}
+
+.pagesa-total-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid #e3eee7;
+}
+
+.pagesa-grand-total {
+  font-size: 1.12rem;
+  color: #123326;
+}
+
+.pagesa-success {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 32px;
+  text-align: center;
+}
+
+.pagesa-success p {
+  margin: 10px 0 22px;
+  color: #456456;
+  font-weight: 700;
+}
+
+@media (max-width: 820px) {
+  .pagesa-page {
+    padding: 46px 16px 32px;
+  }
+
+  .pagesa-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pagesa-summary {
+    position: static;
+  }
+}
