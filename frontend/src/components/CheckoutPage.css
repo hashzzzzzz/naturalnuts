@@ -139,6 +139,14 @@
   color: #123326;
 }
 
+.checkout-shipping-note {
+  margin: 10px 0 0;
+  color: #456456;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .checkout-summary button,
 .checkout-empty button {
   width: 100%;

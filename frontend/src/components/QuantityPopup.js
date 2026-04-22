@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { calculateCartPricing, formatPrice } from '../cartPricing';
+import { calculateItemBasePrice, formatPrice } from '../cartPricing';
 import './QuantityPopup.css';
 
 const QuantityPopup = ({ product, onSave, onClose }) => {
@@ -19,12 +19,10 @@ const QuantityPopup = ({ product, onSave, onClose }) => {
   };
 
   const quantityNumber = Number.parseFloat(quantity) || 0;
-  const pricing = calculateCartPricing([
-    {
-      ...product,
-      quantity: quantityNumber,
-    },
-  ]);
+  const productPrice = calculateItemBasePrice({
+    ...product,
+    quantity: quantityNumber,
+  });
 
   return (
     <div className="quantity-backdrop">
@@ -48,22 +46,13 @@ const QuantityPopup = ({ product, onSave, onClose }) => {
         />
         {error && <p className="quantity-error">{error}</p>}
         <div className="quantity-price-box">
-          <div>
-            <span>Produkti</span>
-            <strong>{formatPrice(pricing.subtotal)}</strong>
-          </div>
-          <div>
-            <span>Posta</span>
-            <strong>{formatPrice(pricing.shipping)}</strong>
-          </div>
           <div className="quantity-total-row">
-            <span>Totali</span>
-            <strong>{formatPrice(pricing.total)}</strong>
+            <span>Cmimi</span>
+            <strong>{formatPrice(productPrice)}</strong>
           </div>
           {quantityNumber >= 0.5 && quantityNumber < 0.9 && (
             <p>+0.50 EUR per sasi me pak se 0.9kg</p>
           )}
-          {pricing.hasFreeShipping && <p>Posta falas</p>}
         </div>
         <div className="quantity-actions">
           <button type="submit">Ruaj ne karte</button>

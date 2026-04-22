@@ -188,6 +188,11 @@ const PagesaPage = () => {
                     <span>Posta</span>
                     <strong>{pricing.shipping === 0 ? 'Falas' : formatPrice(pricing.shipping)}</strong>
                   </div>
+                  <p className="pagesa-shipping-note">
+                    {pricing.shipping === 0
+                      ? 'Posta eshte falas per porosite mbi 30 EUR.'
+                      : 'Posta kushton 2 EUR per porosite nen 30 EUR.'}
+                  </p>
                   <div className="pagesa-total-row pagesa-grand-total">
                     <span>Totali</span>
                     <strong>{formatPrice(pricing.total)}</strong>
