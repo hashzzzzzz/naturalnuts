@@ -17,8 +17,8 @@ import EditProduct from './components/EditProduct';
 import DeleteProduct from './components/DeleteProduct';
 import Login from './components/Login';  // <-- New Login component (create it)
 import EditProductIDInput from './components/EditProductId';
-import OrderPopup from './components/OrderPopup';
-import { CartProvider, useCart } from './contexts/CartContext';
+import CheckoutPage from './components/CheckoutPage';
+import { CartProvider } from './contexts/CartContext';
 
 // Add this to make the backend URL dynamic
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
@@ -38,7 +38,7 @@ function HomePage({ searchQuery }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  axios.get(`${API_BASE_URL}api/products`)
+    axios.get(`${API_BASE_URL}/api/products`)
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -85,11 +85,9 @@ function ContactPage() {
 }
 
 function AppContent() {
-  const { state } = useCart();
   const [loggedIn, setLoggedIn] = useState(false);
   // ✅ add search state
   const [searchQuery, setSearchQuery] = useState('');
-  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('loggedIn');
@@ -108,11 +106,11 @@ function AppContent() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           onSearch={setSearchQuery}
-          onCartClick={() => setCartOpen(true)}
         />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/contactus" element={<ContactPage />} />
           <Route path="/adminlogin" element={<Login setLoggedIn={setLoggedIn} />} />
 
@@ -162,12 +160,6 @@ function AppContent() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
-      {cartOpen && (
-        <OrderPopup
-          cartItems={state.items}
-          onClose={() => setCartOpen(false)}
-        />
-      )}
     </div>
   );
 }

@@ -15,13 +15,15 @@ const Ribon = () => {
       { threshold: 0.5 }
     );
 
-    if (ribbonRef.current) {
-      observer.observe(ribbonRef.current);
+    const ribbonElement = ribbonRef.current;
+
+    if (ribbonElement) {
+      observer.observe(ribbonElement);
     }
 
     return () => {
-      if (ribbonRef.current) {
-        observer.unobserve(ribbonRef.current);
+      if (ribbonElement) {
+        observer.unobserve(ribbonElement);
       }
     };
   }, []);

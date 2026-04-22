@@ -6,7 +6,7 @@ import './ProductList.css';
 import logo from '../assets/naturalnutslogofin.png';
 
 const ProductList = ({ products = [] }) => {
-  const { dispatch } = useCart();
+  const { addToCart } = useCart();
   const [visibleCount, setVisibleCount] = useState(6);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -14,16 +14,7 @@ const ProductList = ({ products = [] }) => {
   const handleOrderClick = (product) => setSelectedProduct(product);
   const handleClosePopup = () => setSelectedProduct(null);
   const handleSaveQuantity = (quantity) => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        id: selectedProduct._id,
-        name: selectedProduct.name,
-        price: selectedProduct.price || 0,
-        imageUrl: selectedProduct.imageUrl,
-        quantity,
-      },
-    });
+    addToCart(selectedProduct, quantity);
     setSelectedProduct(null);
   };
 

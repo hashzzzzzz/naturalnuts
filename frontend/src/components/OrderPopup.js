@@ -18,7 +18,7 @@ const calculateItemBasePrice = (item) => {
 }
 
 const OrderPopup = ({ product, cartItems = null, onClose }) => {
-  const { dispatch } = useCart()
+  const { clearCart } = useCart()
   const isCartOrder = Array.isArray(cartItems)
   const checkoutItems = isCartOrder
     ? cartItems
@@ -137,7 +137,7 @@ const OrderPopup = ({ product, cartItems = null, onClose }) => {
       .then(() => {
         setIsSubmitting(false)
         if (isCartOrder) {
-          dispatch({ type: "CLEAR_CART" })
+          clearCart()
         }
         setIsSuccess(true)
       })

@@ -5,7 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import logo from '../assets/123.png';
 import './Navbar.css';
 
-const Navbar = ({ onSearch, onCartClick }) => {
+const Navbar = ({ onSearch }) => {
   const { state } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -133,7 +133,7 @@ const Navbar = ({ onSearch, onCartClick }) => {
               type="button"
               className="cart-button"
               onClick={() => {
-                onCartClick();
+                navigate('/checkout');
                 setMenuOpen(false);
               }}
               aria-label="Hap karten"
