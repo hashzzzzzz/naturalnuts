@@ -11,11 +11,13 @@ function cartReducer(state, action) {
 
       if (existingItem) {
         const updatedItems = state.items.map((item) =>
-          item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item,
+          item.id === action.payload.id
+            ? { ...item, quantity: Number(item.quantity) + Number(action.payload.quantity) }
+            : item,
         )
         return calculateTotals({ ...state, items: updatedItems })
       } else {
-        const newItems = [...state.items, { ...action.payload, quantity: 1 }]
+        const newItems = [...state.items, action.payload]
         return calculateTotals({ ...state, items: newItems })
       }
     }
@@ -49,8 +51,8 @@ function cartReducer(state, action) {
 }
 
 function calculateTotals(state) {
-  const total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const itemCount = state.items.reduce((sum, item) => sum + item.quantity, 0)
+  const total = state.items.reduce((sum, item) => sum + item.price * Number(item.quantity), 0)
+  const itemCount = state.items.length
   return { ...state, total, itemCount }
 }
 

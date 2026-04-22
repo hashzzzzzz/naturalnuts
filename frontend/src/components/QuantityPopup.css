@@ -1,0 +1,69 @@
+.quantity-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.quantity-dialog {
+  width: min(420px, 100%);
+  background: #fff;
+  color: #1b4332;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.quantity-dialog h2 {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.quantity-dialog label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.quantity-dialog input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #b7c8bf;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.quantity-error {
+  margin-top: 10px;
+  color: #b00020;
+  font-weight: 700;
+}
+
+.quantity-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.quantity-actions button {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quantity-actions button:first-child {
+  background: #1b4332;
+  color: #fff;
+}
+
+.quantity-actions button:last-child {
+  background: #ececec;
+  color: #1b4332;
+}

@@ -17,6 +17,8 @@ import EditProduct from './components/EditProduct';
 import DeleteProduct from './components/DeleteProduct';
 import Login from './components/Login';  // <-- New Login component (create it)
 import EditProductIDInput from './components/EditProductId';
+import OrderPopup from './components/OrderPopup';
+import { CartProvider, useCart } from './contexts/CartContext';
 
 // Add this to make the backend URL dynamic
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://naturalnuts.onrender.com';
@@ -82,10 +84,12 @@ function ContactPage() {
   );
 }
 
-function App() {
+function AppContent() {
+  const { state } = useCart();
   const [loggedIn, setLoggedIn] = useState(false);
   // ✅ add search state
   const [searchQuery, setSearchQuery] = useState('');
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('loggedIn');
@@ -104,6 +108,7 @@ function App() {
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
           onSearch={setSearchQuery}
+          onCartClick={() => setCartOpen(true)}
         />
         <Routes>
           {/* Public Routes */}
@@ -157,7 +162,21 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
+      {cartOpen && (
+        <OrderPopup
+          cartItems={state.items}
+          onClose={() => setCartOpen(false)}
+        />
+      )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <CartProvider>
+      <AppContent />
+    </CartProvider>
   );
 }
 

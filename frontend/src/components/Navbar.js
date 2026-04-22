@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from '../contexts/CartContext';
 import logo from '../assets/123.png';
 import './Navbar.css';
 
-const Navbar = ({ onSearch }) => {
+const Navbar = ({ onSearch, onCartClick }) => {
+  const { state } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [searchVisible, setSearchVisible] = useState(false);
@@ -123,6 +126,20 @@ const Navbar = ({ onSearch }) => {
           <li>
             <button onClick={(e) => handleLinkClick('purchase-guide', e)} className="button">
               Blej Tash
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="cart-button"
+              onClick={() => {
+                onCartClick();
+                setMenuOpen(false);
+              }}
+              aria-label="Hap karten"
+            >
+              <FaShoppingCart />
+              {state.itemCount > 0 && <span className="cart-count">{state.itemCount}</span>}
             </button>
           </li>
 

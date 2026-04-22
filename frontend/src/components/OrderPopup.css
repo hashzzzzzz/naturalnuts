@@ -135,6 +135,27 @@ body.popup-open {
   gap: 1rem;
 }
 
+.cart-order-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid #d7e2dc;
+  border-radius: 8px;
+  background: #f7fbf8;
+}
+
+.cart-order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #1b4332;
+}
+
+.cart-order-item span {
+  overflow-wrap: anywhere;
+}
+
 .popup-buttons button {
   flex: 1;
   padding: 1rem 1.6rem;         /* bigger padding */
