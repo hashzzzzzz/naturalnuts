@@ -35,13 +35,14 @@ export default function AdminPanel() {
   }, []);
 
   const handleDelete = async (product) => {
-    const confirmed = window.confirm(`A je i sigurt qe don me fshi "${product.name}"?`);
+    const productId = product._id || product.id;
+    const confirmed = window.confirm('Je i sigurt qe do te fshishe produktin?');
     if (!confirmed) return;
 
-    setDeletingId(product._id);
+    setDeletingId(productId);
     try {
-      await axios.delete(apiUrl(`/api/products/${product._id}`));
-      setProducts((prev) => prev.filter((item) => item._id !== product._id));
+      await axios.delete(apiUrl(`/api/products/${productId}`));
+      setProducts((prev) => prev.filter((item) => (item._id || item.id) !== productId));
     } catch {
       alert('Produkti nuk u fshi. Provo perseri.');
     } finally {
@@ -115,7 +116,7 @@ export default function AdminPanel() {
                     type="button"
                     className="admin-icon-button admin-delete-button"
                     onClick={() => handleDelete(product)}
-                    disabled={deletingId === product._id}
+                    disabled={deletingId === (product._id || product.id)}
                     aria-label={`Delete ${product.name}`}
                     title="Delete"
                   >
