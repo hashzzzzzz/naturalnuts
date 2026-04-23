@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { apiUrl } from '../api';
 import './AddProductForm.css'; // reuse the same CSS (or your shared CSS file)
 
 export default function EditProduct() {
   const { id: productId } = useParams();
+  const location = useLocation();
 
   const [form, setForm] = useState({ name: '', price: '', image: null });
   const [imageUrl, setImageUrl] = useState('');
@@ -16,24 +17,45 @@ export default function EditProduct() {
 
   const fileInputRef = useRef(null);
 
+  const fillProductForm = useCallback((product) => {
+    if (!product) return;
+    setForm({ name: product.name || '', price: product.price ?? '', image: null });
+    setImageUrl(product.imageUrl || '');
+    setMessage('');
+  }, []);
+
   // Fetch existing product data on mount
   useEffect(() => {
     const fetchProduct = async () => {
       setIsLoading(true);
+
+      if (location.state?.product) {
+        fillProductForm(location.state.product);
+        setIsLoading(false);
+        return;
+      }
+
       try {
         const res = await axios.get(apiUrl(`/api/products/${productId}`));
-        const product = res.data;
-        setForm({ name: product.name || '', price: product.price ?? '', image: null });
-        setImageUrl(product.imageUrl || '');
-        setMessage('');
+        fillProductForm(res.data);
       } catch (error) {
-        setMessage('Failed to load product details.');
+        try {
+          const res = await axios.get(apiUrl('/api/products'));
+          const product = res.data.find((item) => item._id === productId || item.id === productId);
+          if (product) {
+            fillProductForm(product);
+          } else {
+            setMessage('Failed to load product details.');
+          }
+        } catch {
+          setMessage('Failed to load product details.');
+        }
       } finally {
         setIsLoading(false);
       }
     };
     fetchProduct();
-  }, [productId]);
+  }, [fillProductForm, location.state, productId]);
 
   // Drag & drop handlers
   const handleDragOver = useCallback((e) => {

@@ -55,7 +55,7 @@ const QuantityPopup = ({ product, onSave, onClose }) => {
           )}
         </div>
         <div className="quantity-actions">
-          <button type="submit">Ruaj ne karte</button>
+          <button type="submit">Ruaj ne shporte</button>
           <button type="button" onClick={onClose}>Anulo</button>
         </div>
       </form>

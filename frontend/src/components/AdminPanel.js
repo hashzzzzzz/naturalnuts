@@ -105,7 +105,7 @@ export default function AdminPanel() {
                   <button
                     type="button"
                     className="admin-icon-button admin-edit-button"
-                    onClick={() => navigate(`/admin/edit-product/${product._id}`)}
+                    onClick={() => navigate(`/admin/edit-product/${product._id}`, { state: { product } })}
                     aria-label={`Update ${product.name}`}
                     title="Update"
                   >
